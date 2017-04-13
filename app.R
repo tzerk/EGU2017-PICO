@@ -88,10 +88,10 @@ ui <- dashboardPage(
               fluidRow(
                 box(width = 6, status = "primary", solidHeader = TRUE, collapsible = TRUE,
                     title = "Expectation",
-                    tags$img(src = "img/expectation.gif", style = "width:100%;", border = 0, alt = "Null")),
+                    tags$img(src = "img/expectation.gif", style = "width:100%;", border = 0)),
                 box(width = 6, status = "warning", solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
                     title = "Reality",
-                    tags$img(src = "img/reality.gif", style = "width:100%;", border = 0, alt = "Null"))
+                    tags$img(src = "img/reality.gif", style = "width:100%;", border = 0))
               )
       ),
       tabItem("intro_2",
