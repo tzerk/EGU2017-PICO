@@ -1,6 +1,81 @@
 #talk-title {
-  margin-right: 10px;
+  margin-top: 10px;
   margin-right: 20px;
-  color: lightgrey;
+  color: white;
   font-size: 90%;
+}
+
+.number{
+	color: rgb(21,20,181) ;
+	font-size: 11px;
+}
+
+.functioncall{
+	color: red;
+	font-size: 11px;
+}
+
+.string{
+	color: rgb(153,153,255) ;
+	font-size: 11px;
+}
+
+.keyword{
+	color: black;
+	font-size: 11px;
+}
+
+.argument{
+	color: rgb( 177,63,5) ;
+	font-size: 11px;
+}
+
+.comment{
+	color: green;/* rgb( 204,204,204) ; */
+	font-size: 11px;
+}
+
+.roxygencomment{
+	color: rgb(0,151,255);
+	font-size: 11px;
+}
+
+.formalargs{
+	color: rgb(18,182,18);
+	font-size: 11px;
+}
+
+.eqformalargs{
+	color: rgb(18,182,18);
+	font-size: 11px;
+}
+
+.assignement{
+	color: rgb(55,55,98);
+	font-size: 11px;
+}
+
+.package{
+	color: rgb(150,182,37);
+	font-size: 11px;
+}
+
+.slot{
+	font-style:italic;
+	font-size: 11px;
+}
+
+.symbol{
+	color: black ;
+	font-size: 11px;
+}
+
+.prompt{
+	color: black ;
+	font-size: 11px;
+}
+
+.line{
+    color: gray ;
+    font-size: 11px;
 }
