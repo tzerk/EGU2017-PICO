@@ -1,0 +1,22 @@
+Since the release of the R package 'Luminescence' (Kreutzer et al., 2012) the functionality of the package has
+been greatly enhanced by implementing further functions for measurement data processing, statistical analysis and
+graphical output. Despite its capabilities for complex and non-standard analysis of luminescence data, working
+with the command-line interface (CLI) of R can be tedious at best and overwhelming at worst, especially for users
+without experience in programming languages. Even though much work is put into simplifying the usage of the
+package to continuously lower the entry threshold, at least basic knowledge of R will always be required. Thus,
+the potential user base of the package cannot be exhausted, at least as long as the CLI is the only means of utilising
+the 'Luminescence' package. <br/>
+But even experienced users may find it tedious to iteratively run a function until a satisfying results is produced. For
+example, plotting data is also at least partly subject to personal aesthetic tastes in accordance with the information it
+is supposed to convey and iterating through all the possible options in the R CLI can be a time-consuming task. An
+alternative approach to the CLI is the graphical user interface (GUI), which allows direct, interactive manipulation
+and interaction with the underlying software. For users with little or no experience with command-lines a GUI
+offers intuitive access that counteracts the perceived steep learning curve of a CLI. Even though R lacks native
+support for GUI functions, its capabilities of linking it to other programming languages allows to utilise external
+frameworks to build graphical user interfaces. A recent attempt to provide a GUI toolkit for R was the introduction
+of the 'shiny' package (Chang et al., 2016), which allows automatic construction of HTML, CSS and JavaScript
+based user interfaces straight from R. <br/>
+Here, we give (1) a brief introduction to the 'shiny' framework for R, before we (2) present a GUI for the R package
+'Luminescence' in the form of interactive web applications. These applications can be accessed online so that a
+user is not even required to have a local installation of R and which provide access to most of the plotting functions
+of the R package 'Luminescence'. These functionalities will be demonstrated live during the PICO session.

@@ -17,7 +17,7 @@ ui <- dashboardPage(
   dashboardHeader(title = "EGU 2017 - PICO",
                   tags$li(class = "dropdown", 
                           tags$a(id = "btnFullscreen", icon("arrows-alt"), "Toggle Fullscreen")),
-                  tags$li(class = "dropdown", 
+                  tags$li(class = "dropdown",
                           tags$a(href = "", icon("refresh"), "Reload"))
                   
   ),## EndOf::HEADER
@@ -55,7 +55,7 @@ ui <- dashboardPage(
                          menuSubItem("'RLumShiny' package", icon = icon(""), tabName = "shinylum_1"),
                          menuSubItem("Examples", icon = icon(""), tabName = "shinylum_2")),
                 
-                menuItem("Authors", icon = icon("user"), tabName = "authors")
+                menuItem("Get started!", icon = icon("rocket"), tabName = "getstarted")
     )#EndOf::SideBarMenu
     
   ),#EndOf::SIDEBAR
@@ -80,18 +80,48 @@ ui <- dashboardPage(
       ## Introduction ----
       tabItem("intro_1",
               fluidRow(
-                box(width = 8, status = "primary", solidHeader = TRUE,
-                    title = "Introduction #1"),
-                box(width = 4, status = "warning", 
-                    title = "Additional Information")
+                box(width = 12, status = "success", solidHeader = TRUE, collapsible = TRUE,
+                    title = NULL,
+                    div(align = "center",
+                        tags$p(id = "title", title),
+                        tags$p(id = "authors", authors)
+                    ))
               ),
               fluidRow(
-                box(width = 6, status = "primary", solidHeader = TRUE, collapsible = TRUE,
-                    title = "Expectation",
-                    tags$img(src = "img/expectation.gif", style = "width:100%;", border = 0)),
-                box(width = 6, status = "warning", solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                    title = "Reality",
-                    tags$img(src = "img/reality.gif", style = "width:100%;", border = 0))
+                box(width = 8, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
+                    title = "Abstract",
+                    tabBox(width = 12,
+                      tabPanel("I", HTML(abstract[[1]])),
+                      tabPanel("II", HTML(abstract[[2]])),
+                      tabPanel("III", HTML(abstract[[3]]))
+                    )),
+                box(width = 4, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
+                    title = "Affiliations",
+                    tabBox(width = 12,
+                      tabPanel("[1]", HTML(affils[[1]])),
+                      tabPanel("[2]", HTML(affils[[2]])),
+                      tabPanel("[3]", HTML(affils[[3]])),
+                      tabPanel("[4]", HTML(affils[[4]])),
+                      tabPanel("[5]", HTML(affils[[5]]))
+                      ))
+              ),
+              fluidRow(
+                box(width = 12, solidHeader = FALSE,
+                    title = NULL,
+                    div(align = "left", 
+                        HTML("<blockquote class = 'blockquote-reverse'>"), 
+                        tags$p(id = "reality", 
+                               HTML("&laquo; Working with the command-line interface (CLI) of R can be tedious at best and overwhelming at worst. &raquo;")),
+                        HTML("<footer>An anonymous user<b>R</b></footer>"),
+                        HTML("</blockquote>")),
+                    box(width = 6, status = "primary", solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
+                        title = "Expectation",
+                        tags$img(src = "img/expectation.gif", style = "width:100%;", border = 0)),
+                    box(width = 6, status = "danger", solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
+                        title = "Reality",
+                        tags$img(src = "img/reality.gif", style = "width:100%;", border = 0))
+                    
+                    )
               )
       ),
       tabItem("intro_2",
@@ -125,7 +155,8 @@ ui <- dashboardPage(
                                     status = "primary",
                                     solidHeader = TRUE, collapsible = TRUE,
                                     width = 6,
-                                    actionButton("actionBtn", "Do NOT press!", class = "btn btn-danger", style = "color: white;")
+                                    actionButton("actionBtn", "Do NOT press!", class = "btn btn-danger",
+                                                 style = "color: white;", width = "100%")
                                 ),
                                 box(title = "Checkbox",
                                     status = "primary",

@@ -5,6 +5,22 @@
   font-size: 90%;
 }
 
+#title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#reality {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+:-ms-fullscreen {
+  /* https://davidwalsh.name/fullscreen */
+  width: 100%;
+}
+
+
 .number{
 	color: rgb(21,20,181) ;
 	font-size: 11px;
