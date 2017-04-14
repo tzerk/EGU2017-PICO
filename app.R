@@ -65,7 +65,7 @@ ui <- dashboardPage(
            "Watch this PICO presentation on you smartphone or tablet!"),
     tags$p(id = "qr_presentation", align = "center",
            tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
-    )
+           )
     
   ),#EndOf::SIDEBAR
   
@@ -100,19 +100,19 @@ ui <- dashboardPage(
                 box(width = 8, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
                     title = "Abstract",
                     tabBox(width = 12,
-                           tabPanel("I", HTML(abstract[[1]])),
-                           tabPanel("II", HTML(abstract[[2]])),
-                           tabPanel("III", HTML(abstract[[3]]))
+                      tabPanel("I", HTML(abstract[[1]])),
+                      tabPanel("II", HTML(abstract[[2]])),
+                      tabPanel("III", HTML(abstract[[3]]))
                     )),
                 box(width = 4, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
                     title = "Affiliations",
                     tabBox(width = 12,
-                           tabPanel("[1]", HTML(affils[[1]])),
-                           tabPanel("[2]", HTML(affils[[2]])),
-                           tabPanel("[3]", HTML(affils[[3]])),
-                           tabPanel("[4]", HTML(affils[[4]])),
-                           tabPanel("[5]", HTML(affils[[5]]))
-                    ))
+                      tabPanel("[1]", HTML(affils[[1]])),
+                      tabPanel("[2]", HTML(affils[[2]])),
+                      tabPanel("[3]", HTML(affils[[3]])),
+                      tabPanel("[4]", HTML(affils[[4]])),
+                      tabPanel("[5]", HTML(affils[[5]]))
+                      ))
               ),
               fluidRow(
                 box(width = 12, solidHeader = FALSE,
@@ -130,7 +130,7 @@ ui <- dashboardPage(
                         title = "Reality",
                         tags$img(src = "img/reality.gif", style = "width:100%;", border = 0))
                     
-                )
+                    )
               )
       ),
       tabItem("intro_2",
@@ -290,9 +290,9 @@ ui <- dashboardPage(
                      tabPanel("KDE", uiOutput("kde")),
                      tabPanel("Histogram", uiOutput("hist")))
       )
+      )
     )
-  )
-)#EndOf::BODY
+  )#EndOf::BODY
 
 ################################################################################
 ####                          SERVER                                          ##
