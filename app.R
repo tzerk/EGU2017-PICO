@@ -31,6 +31,7 @@ ui <- dashboardPage(
     tags$p(id = "talk-title", align = "center",
            HTML("Easing access to R using ‘shiny’ to create graphical user interfaces:</br>",
                 "An example for the R package ‘Luminescence’")),
+    tags$hr(id = "title_hr"),
     
     # Sidebar navigation items
     sidebarMenu(id = "sidebar",
@@ -56,7 +57,15 @@ ui <- dashboardPage(
                          menuSubItem("Examples", icon = icon(""), tabName = "shinylum_2")),
                 
                 menuItem("Get started!", icon = icon("rocket"), tabName = "getstarted")
-    )#EndOf::SideBarMenu
+    ),#EndOf::SideBarMenu
+    
+    # QR Code to presentation
+    tags$hr(id = "qr_hr"),
+    tags$p(id = "qr_presentation_text", align = "center",
+           "Watch this PICO presentation on you smartphone or tablet!"),
+    tags$p(id = "qr_presentation", align = "center",
+           tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
+    )
     
   ),#EndOf::SIDEBAR
   
@@ -81,7 +90,7 @@ ui <- dashboardPage(
       tabItem("intro_1",
               fluidRow(
                 box(width = 12, status = "success", solidHeader = TRUE, collapsible = TRUE,
-                    title = NULL,
+                    title = "",
                     div(align = "center",
                         tags$p(id = "title", title),
                         tags$p(id = "authors", authors)
@@ -91,19 +100,19 @@ ui <- dashboardPage(
                 box(width = 8, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
                     title = "Abstract",
                     tabBox(width = 12,
-                      tabPanel("I", HTML(abstract[[1]])),
-                      tabPanel("II", HTML(abstract[[2]])),
-                      tabPanel("III", HTML(abstract[[3]]))
+                           tabPanel("I", HTML(abstract[[1]])),
+                           tabPanel("II", HTML(abstract[[2]])),
+                           tabPanel("III", HTML(abstract[[3]]))
                     )),
                 box(width = 4, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
                     title = "Affiliations",
                     tabBox(width = 12,
-                      tabPanel("[1]", HTML(affils[[1]])),
-                      tabPanel("[2]", HTML(affils[[2]])),
-                      tabPanel("[3]", HTML(affils[[3]])),
-                      tabPanel("[4]", HTML(affils[[4]])),
-                      tabPanel("[5]", HTML(affils[[5]]))
-                      ))
+                           tabPanel("[1]", HTML(affils[[1]])),
+                           tabPanel("[2]", HTML(affils[[2]])),
+                           tabPanel("[3]", HTML(affils[[3]])),
+                           tabPanel("[4]", HTML(affils[[4]])),
+                           tabPanel("[5]", HTML(affils[[5]]))
+                    ))
               ),
               fluidRow(
                 box(width = 12, solidHeader = FALSE,
@@ -121,7 +130,7 @@ ui <- dashboardPage(
                         title = "Reality",
                         tags$img(src = "img/reality.gif", style = "width:100%;", border = 0))
                     
-                    )
+                )
               )
       ),
       tabItem("intro_2",
@@ -252,7 +261,13 @@ ui <- dashboardPage(
                 )
               )
       ),
-      
+      # Deploying apps
+      tabItem("shiny_3",
+              tabBox(title = "Sharing shiny applications is simple!",
+                     id = "deploy_1",
+                     width = 12,
+                     tags$p("placeholder"))
+      ),
       ## Luminescence ----
       tabItem("lum_3",
               box(width = 12, status = "primary", solidHeader = FALSE,
@@ -265,8 +280,7 @@ ui <- dashboardPage(
               tabBox(title = HTML("The <b>R</b> package 'RLumShiny'"),
                      width = 12,
                      tabPanel("tab 1"),
-                     tabPanel("tab 2")
-              )
+                     tabPanel("tab 2"))
       ),
       tabItem("shinylum_2",
               tabBox(title = "RLumShiny applications",
@@ -274,12 +288,11 @@ ui <- dashboardPage(
                      width = 12,
                      tabPanel("Abanico Plot", uiOutput("abanico")),
                      tabPanel("KDE", uiOutput("kde")),
-                     tabPanel("Histogram", uiOutput("hist"))
-              )
+                     tabPanel("Histogram", uiOutput("hist")))
       )
     )
-  )#EndOf::BODY
-)
+  )
+)#EndOf::BODY
 
 ################################################################################
 ####                          SERVER                                          ##

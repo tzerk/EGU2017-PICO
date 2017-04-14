@@ -1,6 +1,6 @@
 #talk-title {
   margin-top: 10px;
-  margin-right: 20px;
+  margin-right: 0;
   color: white;
   font-size: 90%;
 }
@@ -10,9 +10,29 @@
   font-weight: bold;
 }
 
+#box_title {
+  height: 30px;
+}
+
 #reality {
   font-size: 18px;
   font-weight: bold;
+}
+
+#qr_presentation {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+#qr_presentation_text {
+  margin-top: 10px;
+  margin-right: 0;
+  color: white;
+  font-size: 90%;
+}
+
+#qr_hr, #title_hr {
+  border-top: 1px solid #b91229
 }
 
 :-ms-fullscreen {
