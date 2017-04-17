@@ -274,6 +274,22 @@ ui <- dashboardPage(
                   title = HTML("Functions in the <b>R</b> package 'Luminescence' (v0.8.0)"),
                   dataTableOutput("lum_functions"))
       ),
+      tabItem("lum_4",
+              box(width = 4, status = "primary", solidHeader = TRUE, collapsible = TRUE,
+                  title = HTML("Statistics"),
+                  radioButtons("cran_package", "R package", 
+                               choices = list("Luminescence" = "luminescence",
+                                              "RLumShiny" = "rlumshiny")),
+                  radioButtons("cran_category", "Statistic",
+                               choices = list("Date" = "date",
+                                              "Country" = "country",
+                                              "OS" = "os",
+                                              "R Version" = "r_version",
+                                              "Architecture" = "arch"))),
+              box(width = 8, status = "warning", solidheader = TRUE, collapsible = TRUE,
+                  title = HTML("Plot"),
+                  plotOutput("cran_plot"))
+      ),
       
       ## RLumShiny ----
       tabItem("shinylum_1",
@@ -300,6 +316,24 @@ ui <- dashboardPage(
 server <- function(input, output, session) {
   
   ## Introduction
+  
+  ## Luminescence
+  output$cran_plot <- renderPlot({
+    
+    data <- switch(input$cran_package,
+                   "luminescence" = list(cran$luminescence),
+                   "rlumshiny" = list(cran$rlumshiny))
+    
+    fun <- switch(input$cran_category,
+                  "date" = gg_Timeline(data),
+                  "country" = gg_Map(data),
+                  "os" = gg_ByOS(data),
+                  "r_version" = gg_ByVersion(data),
+                  "arch" = gg_ByArch(data))
+    
+    if (inherits(fun[[1]], "gg"))
+      print(fun[[1]])
+  })
   
   ## Shiny framework
   output$helloshiny_code_ui <- renderUI({

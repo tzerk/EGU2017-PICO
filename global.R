@@ -71,3 +71,6 @@ get_buttonMsg <- function(x) {
 
 # gg plot themes
 ggtheme <- list(theme_bw(), theme_classic(), theme_dark())
+
+# world country code reference list
+world_code <- read.table("snippets/coordinates.txt", header = TRUE, stringsAsFactors = FALSE)
