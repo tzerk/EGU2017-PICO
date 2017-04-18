@@ -38,6 +38,38 @@ affils <- list("University of Cologne, Institute of Geography, Department of Geo
                "Helmholtz-Zentrum Dresden-Rossendorf, Helmholtz-Institut Freiberg for Resource Technology, Freiberg, Germany",
                "Chair of Geomorphology, University of Bayreuth, Bayreuth, Germany")
 
+## Problem description
+problem_text <- paste(
+"While <b>R</b> is a comparatively easy-to-learn programming
+language, there is still a steep learning curve until a user
+is able to routinely achieve the desired results. In-depth
+knowledge of <b>R</b> fundamentals is not required when
+working with the 'Luminescence' package, but being
+familiar with the most important data structures in R is
+a must.", tags$br(), tags$br(),
+"In the simplest case, for a specific task, using
+the package only involves a single short function call,
+e.g., ", tags$code("Luminescence::plot AbanicoPlot(data = de.data)"), " to produce
+an abanico plot (Dietze et al., 2016)
+of equivalent dose estimates. However, users may want to
+adjust the plot according to their requirements. While other
+software products such as Origin&reg; or SigmaPlot&reg; allow the
+user to comfortably click on each element of a plot to change
+its appearance, this is not possible in <b>R</b>. In <b>R</b> a plot cannot
+be changed after it has been drawn, and the user is required
+to re-run the function call with additional arguments that
+control the appearance of specific plot elements. For the",
+tags$code("Luminescence::plot AbanicoPlot()"), "function
+there are currently 33 such arguments, plus additional base
+<b>R</b> arguments that can be used to design the plot to ones
+desire. For more elaborate plots the function call in the <b>R</b>
+command-line rapidly increases in complexity.", tags$br(), tags$br(),
+"Users new to <b>R</b> may feel quickly overwhelmed and may hence not be able
+to exploit the full potential of the <b>R</b> command-line. But even
+experienced users may find it tedious to iteratively run the
+function until a satisfying results is produced."
+) %>% HTML()
+
 ## Luminescence functions table
 rlum_fun_df <- readRDS("data/rlum_functions.rds") %>% 
   select(Name, Title, Version)
@@ -47,17 +79,20 @@ iframe <- list(
   abanico = tags$iframe(seamless = "seamless", 
                         src = "http://rlum.geographie.uni-koeln.de:3838/packages/RLumShiny/inst/shiny/abanico/", 
                         width = "100%", 
-                        height = "650px"),
+                        height = "650px",
+                        frameborder = "0"),
   
   kde = tags$iframe(seamless = "seamless", 
                     src = "http://rlum.geographie.uni-koeln.de:3838/packages/RLumShiny/inst/shiny/KDE/", 
                     width = "100%", 
-                    height = "650px"),
+                    height = "650px",
+                    frameborder = "0"),
   
   hist = tags$iframe(seamless = "seamless", 
                      src = "http://rlum.geographie.uni-koeln.de:3838/packages/RLumShiny/inst/shiny/histogram/", 
                      width = "100%", 
-                     height = "650px")
+                     height = "650px",
+                     frameborder = "0")
 )
 
 highlight_code <- function(file) {
