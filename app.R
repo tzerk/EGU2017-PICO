@@ -43,7 +43,7 @@ ui <- dashboardPage(
                 # Menus
                 menuItem("Introduction", icon = icon("play"), tabName = "intro",
                          menuSubItem(HTML("The p<b>R</b>oblem"), icon = icon("question-circle-o"), tabName = "intro_1"),
-                         menuSubItem("The Solution(?)", icon = icon("lightbulb-o"), tabName = "intro_2")),
+                         menuSubItem("A solution?", icon = icon("lightbulb-o"), tabName = "intro_2")),
                 
                 menuItem("The 'shiny' framework", icon = icon("star"), tabName = "shiny",
                          menuSubItem("Hello Shiny!", icon = icon(""), tabName = "shiny_1"),
@@ -70,6 +70,9 @@ ui <- dashboardPage(
     tags$p(id = "qr_presentation", align = "center",
            tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
     )
+    
+    # tags$hr(id = "qr_hr"),
+    # tags$p(align = "center", valueBoxOutput("approval", width = 12))
     
   ),#EndOf::SIDEBAR
   
@@ -121,12 +124,18 @@ ui <- dashboardPage(
               fluidRow(
                 box(width = 12, solidHeader = FALSE,
                     title = NULL,
-                    div(align = "left", 
-                        HTML("<blockquote class = 'blockquote-reverse'>"), 
-                        tags$p(id = "reality", 
-                               HTML("&laquo; Working with the command-line interface (CLI) of R can be tedious at best and overwhelming at worst. &raquo;")),
-                        HTML("<footer>An anonymous user<b>R</b></footer>"),
-                        HTML("</blockquote>")),
+                    fluidRow(width = 12,
+                      column(width = 1,
+                             actionButton("problem", "", icon = icon("info-circle"), class = "info-btn")),
+                      column(width = 11,
+                             div(align = "left", 
+                                 HTML("<blockquote class = 'blockquote-reverse'>"), 
+                                 tags$p(id = "reality", 
+                                        HTML("&laquo; Working with the command-line interface (CLI) of R can be tedious at best and overwhelming at worst. &raquo;")),
+                                 HTML("<footer>An anonymous user<b>R</b></footer>"),
+                                 HTML("</blockquote>"))
+                             )
+                    ),
                     box(width = 6, status = "primary", solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
                         title = "Expectation",
                         tags$img(src = "img/expectation.gif", style = "width:100%;", border = 0)),
@@ -147,7 +156,7 @@ ui <- dashboardPage(
       # Hello Shiny app
       tabItem("shiny_1",
               fluidRow(
-                tabBox(title = actionButton("hello_shiny_modal", "", icon = icon("question")),
+                tabBox(title = actionButton("hello_shiny_modal", "", icon = icon("info-circle"), class = "info-btn"),
                        width = 6,
                        tabPanel("Ui.R", htmlOutput("helloshiny_code_ui")),
                        tabPanel("Server.R", htmlOutput("helloshiny_code_server"))
@@ -388,7 +397,16 @@ server <- function(input, output, session) {
   })
   output$session_info <- renderPrint({ sessionInfo() })
   
+  # output$approval <- renderInfoBox({ 
+  #   valueBox("80 %", "Approval", 
+  #            icon = icon("thumbs-up", lib = "glyphicon"), color = "light-blue") 
+  #   })
+  
   ## Introduction
+  observeEvent(input$problem, {
+    showModal(modalDialog(title = HTML("The p<b>R</b>oblem"), easyClose = TRUE,
+                          problem_text))
+  })
   
   ## Luminescence
   output$cran_plot <- renderPlot({
