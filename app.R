@@ -69,7 +69,11 @@ ui <- dashboardPage(
            "Watch this PICO presentation on you smartphone or tablet!"),
     tags$p(id = "qr_presentation", align = "center",
            tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
-    )
+    ),
+    tags$hr(id = "qr_hr")
+    
+    ### Uncomment this to show a slider used for CSS zooming (see JQuery code below)
+    # sliderInput("zoom", "Zoom", min = 0.1, max = 2.0, value = 1.0, step = 0.1)
     
     # tags$hr(id = "qr_hr"),
     # tags$p(align = "center", valueBoxOutput("approval", width = 12))
@@ -86,6 +90,14 @@ ui <- dashboardPage(
     tags$header(
       tags$script(src = "js/fullscreen.js"),
       tags$link(rel = "stylesheet", type = "text/css", href = "css/style.css")
+      
+### Uncomment this code to include JQuery zoom function (buggy on IE)
+#       tags$script("
+# $(document).on('shiny:inputchanged', function(event) {
+#   if (event.name === 'zoom') {
+#     $('body').css('zoom', event.value);
+#   }
+# });")
     ),
     
     tabItems(
@@ -227,8 +239,8 @@ ui <- dashboardPage(
                 column(width = 6,
                        
                        ## 
-                       box(width = 12, status = "success", solidHeader = TRUE, collapsible = TRUE,
-                           title = "Input Widgets",
+                       box(width = 12, solidHeader = TRUE, collapsible = TRUE,
+                           title = tags$b("Input Widgets"),
                            fluidRow(width = 12,
                                     box(title = "Action button",
                                         status = "primary",
@@ -326,10 +338,10 @@ ui <- dashboardPage(
                 ),
                 column(width = 6,
                        tabBox(width = 12,
-                              title = "Output",
-                              tabPanel("Plot",
+                              title = NULL,
+                              tabPanel(title = tagList(icon("line-chart"), HTML("&nbsp;&nbsp;Plot")),
                                        plotOutput("widget_plot")),
-                              tabPanel("Console",
+                              tabPanel(title = tagList(icon("terminal"), HTML("&nbsp;&nbsp;Console")),
                                        fluidRow(width = 12, 
                                                 column(width = 2, "Action button"),
                                                 column(width = 10, verbatimTextOutput("widget_code_actionBtn"))
