@@ -243,6 +243,11 @@ ui <- dashboardPage(
                        ## 
                        box(width = 12, solidHeader = TRUE, collapsible = TRUE,
                            title = tags$b("Input Widgets"),
+                           tags$p(HTML("This is a non-exhaustive collection of input widgets available in the
+                                       <code>shiny</code> framework. Most of the widgets here are bound to a parameter of the
+                                       plot on the right-hand side. Feel free to test them all and observe its effect
+                                       on the plot. You can also check the <b>R</b> console output to see the
+                                       value returned by each widget.")),
                            fluidRow(width = 12,
                                     box(title = "Action button",
                                         status = "primary",
