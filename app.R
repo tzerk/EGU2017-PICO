@@ -67,7 +67,7 @@ ui <- dashboardPage(
            "Watch this PICO presentation on you smartphone or tablet!"),
     tags$p(id = "qr_presentation", align = "center",
            tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
-           )
+    )
     
   ),#EndOf::SIDEBAR
   
@@ -102,19 +102,19 @@ ui <- dashboardPage(
                 box(width = 8, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
                     title = "Abstract",
                     tabBox(width = 12,
-                      tabPanel("I", HTML(abstract[[1]])),
-                      tabPanel("II", HTML(abstract[[2]])),
-                      tabPanel("III", HTML(abstract[[3]]))
+                           tabPanel("I", HTML(abstract[[1]])),
+                           tabPanel("II", HTML(abstract[[2]])),
+                           tabPanel("III", HTML(abstract[[3]]))
                     )),
                 box(width = 4, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
                     title = "Affiliations",
                     tabBox(width = 12,
-                      tabPanel("[1]", HTML(affils[[1]])),
-                      tabPanel("[2]", HTML(affils[[2]])),
-                      tabPanel("[3]", HTML(affils[[3]])),
-                      tabPanel("[4]", HTML(affils[[4]])),
-                      tabPanel("[5]", HTML(affils[[5]]))
-                      ))
+                           tabPanel("[1]", HTML(affils[[1]])),
+                           tabPanel("[2]", HTML(affils[[2]])),
+                           tabPanel("[3]", HTML(affils[[3]])),
+                           tabPanel("[4]", HTML(affils[[4]])),
+                           tabPanel("[5]", HTML(affils[[5]]))
+                    ))
               ),
               fluidRow(
                 box(width = 12, solidHeader = FALSE,
@@ -132,7 +132,7 @@ ui <- dashboardPage(
                         title = "Reality",
                         tags$img(src = "img/reality.gif", style = "width:100%;", border = 0))
                     
-                    )
+                )
               )
       ),
       tabItem("intro_2",
@@ -145,7 +145,7 @@ ui <- dashboardPage(
       # Hello Shiny app
       tabItem("shiny_1",
               fluidRow(
-                tabBox(title = "Code",
+                tabBox(title = actionButton("hello_shiny_modal", "", icon = icon("question")),
                        width = 6,
                        tabPanel("Ui.R", htmlOutput("helloshiny_code_ui")),
                        tabPanel("Server.R", htmlOutput("helloshiny_code_server"))
@@ -159,107 +159,164 @@ ui <- dashboardPage(
       ),
       # Input widgets
       tabItem("shiny_2",
+              
               fluidRow(
                 column(width = 6,
-                       fluidRow(width = 12,
-                                box(title = "Action button",
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE,
-                                    width = 6,
-                                    actionButton("actionBtn", "Do NOT press!", class = "btn btn-danger",
-                                                 style = "color: white;", width = "100%")
-                                ),
-                                box(title = "Checkbox",
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE,
-                                    width = 6,
-                                    checkboxInput("checkbox", "Check this out!", value = FALSE)
-                                )
-                       ),
-                       fluidRow(width = 12,
-                                box(title = "Checkbox group", 
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    checkboxGroupInput("checkboxGroup", "Check us out!", 
-                                                       selected = c("Blue", "Green", "Red"),
-                                                       choices = list("Choice 1" = "Blue", 
-                                                                      "Choice 2" = "Green",
-                                                                      "Choice 3" = "Red"))
-                                ),
-                                box(title = "Date input",
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    dateInput("dateInput", "Date input"))
-                       ),
-                       fluidRow(width = 12,
-                                box(title = "Date range", 
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    dateRangeInput("dateRange", "Date range") 
-                                ),
-                                box(title = "File input",
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    fileInput("fileInpute", "File input"))
-                       ),
-                       fluidRow(width = 12,
-                                box(title = "Numeric input", 
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    numericInput("numericInput", "Numeric input", value = 42) 
-                                ),
-                                box(title = "Radio buttons",
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    radioButtons("radioButtons", "Radio buttons", 
-                                                 choices = list("Choice 1" = 1,
-                                                                "Choice 2" = 2,
-                                                                "Choice 3" = 3)))
-                       ),
-                       fluidRow(width = 12,
-                                box(title = "Select box", 
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    selectInput("selectBox", "Select box", 
-                                                choices = list("Choice 1" = 16,
-                                                               "Choice 2" = 1)) 
-                                ),
-                                box(title = "Slider",
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    sliderInput("slider", "Slider", 
-                                                min = 1, max = 10, value = 2, step = 1))
-                       ),
-                       fluidRow(width = 12,
-                                box(title = "Slider range", 
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    sliderInput("sliderRange", "Slider range", 
-                                                min = 0, max = 100, value = c(0, 100), step = 5)
-                                ),
-                                box(title = "Text input",
-                                    status = "primary",
-                                    solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
-                                    width = 6,
-                                    textInput("textInput", "Text input", placeholder = "Enter text...")
-                                )
+                       
+                       ## 
+                       box(width = 12, status = "success", solidHeader = TRUE, collapsible = TRUE,
+                           title = "Input Widgets",
+                           fluidRow(width = 12,
+                                    box(title = "Action button",
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE,
+                                        width = 6,
+                                        actionButton("actionBtn", "Do NOT press!", class = "btn btn-danger",
+                                                     style = "color: white;", width = "100%")
+                                    ),
+                                    box(title = "Checkbox",
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE,
+                                        width = 6,
+                                        checkboxInput("checkbox", "Check this out!", value = FALSE)
+                                    )
+                           ),
+                           fluidRow(width = 12,
+                                    box(title = "Checkbox group", 
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        checkboxGroupInput("checkboxGroup", "Check us out!", 
+                                                           selected = c("Blue", "Green", "Red"),
+                                                           choices = list("Choice 1" = "Blue", 
+                                                                          "Choice 2" = "Green",
+                                                                          "Choice 3" = "Red"))
+                                    ),
+                                    box(title = "Date input",
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        dateInput("dateInput", "Date input"))
+                           ),
+                           fluidRow(width = 12,
+                                    box(title = "Date range", 
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        dateRangeInput("dateRange", "Date range") 
+                                    ),
+                                    box(title = "File input",
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        fileInput("fileInput", "File input"))
+                           ),
+                           fluidRow(width = 12,
+                                    box(title = "Numeric input", 
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        numericInput("numericInput", "Numeric input", value = 42) 
+                                    ),
+                                    box(title = "Radio buttons",
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        radioButtons("radioButtons", "Radio buttons", 
+                                                     choices = list("Choice 1" = 1,
+                                                                    "Choice 2" = 2,
+                                                                    "Choice 3" = 3)))
+                           ),
+                           fluidRow(width = 12,
+                                    box(title = "Select box", 
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        selectInput("selectBox", "Select box", 
+                                                    choices = list("Choice 1" = 16,
+                                                                   "Choice 2" = 1)) 
+                                    ),
+                                    box(title = "Slider",
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        sliderInput("slider", "Slider", 
+                                                    min = 1, max = 10, value = 2, step = 1))
+                           ),
+                           fluidRow(width = 12,
+                                    box(title = "Slider range", 
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        sliderInput("sliderRange", "Slider range", 
+                                                    min = 0, max = 100, value = c(0, 100), step = 5)
+                                    ),
+                                    box(title = "Text input",
+                                        status = "primary",
+                                        solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
+                                        width = 6,
+                                        textInput("textInput", "Text input", placeholder = "Enter text...")
+                                    )
+                           )
                        )
+                       ##
                 ),
                 column(width = 6,
-                       box(title = "Output",
-                           status = "warning",
-                           solidHeader = TRUE,
-                           width = 12,
-                           plotOutput("widget_plot"))
+                       tabBox(width = 12,
+                              title = "Output",
+                              tabPanel("Plot",
+                                       plotOutput("widget_plot")),
+                              tabPanel("Console",
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Action button"),
+                                                column(width = 10, verbatimTextOutput("widget_code_actionBtn"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Checkbox"),
+                                                column(width = 10, verbatimTextOutput("widget_code_checkbox"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Checkbox group"),
+                                                column(width = 10, verbatimTextOutput("widget_code_checkboxGroup"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Date input"),
+                                                column(width = 10, verbatimTextOutput("widget_code_dateInput"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Date range"),
+                                                column(width = 10, verbatimTextOutput("widget_code_dateRange"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "File input"),
+                                                column(width = 10, verbatimTextOutput("widget_code_fileInput"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Numeric input"),
+                                                column(width = 10, verbatimTextOutput("widget_code_numericInput"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Radio buttons"),
+                                                column(width = 10, verbatimTextOutput("widget_code_radioButtons"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Select box"),
+                                                column(width = 10, verbatimTextOutput("widget_code_selectBox"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Slider"),
+                                                column(width = 10, verbatimTextOutput("widget_code_slider"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "Slider range"),
+                                                column(width = 10, verbatimTextOutput("widget_code_sliderRange"))
+                                       ),
+                                       fluidRow(width = 12, 
+                                                column(width = 2, "textInput"),
+                                                column(width = 10, verbatimTextOutput("widget_code_textInput"))
+                                       )
+                              )
+                       )
                 )
               )
       ),
@@ -308,9 +365,9 @@ ui <- dashboardPage(
                      tabPanel("KDE", uiOutput("kde")),
                      tabPanel("Histogram", uiOutput("hist")))
       )
-      )
     )
-  )#EndOf::BODY
+  )
+)#EndOf::BODY
 
 ################################################################################
 ####                          SERVER                                          ##
@@ -345,11 +402,30 @@ server <- function(input, output, session) {
     helloshiny_code$server
   })
   
+  observeEvent(input$hello_shiny_modal, {
+    showModal(modalDialog(title = HTML("What is <code>Ui.R</code> and <code>Server.R</code>?"), easyClose = TRUE,
+                          tags$p("Content")))
+  })
+  
   output$helloshiny <- renderPlot({
     x <- faithful[ ,2]
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
     hist(x, breaks = bins, col = "darkgray", border = "white")
   })
+  
+  ## Shiny widget code
+  output$widget_code_actionBtn <- renderPrint({ print(input$actionBtn) })
+  output$widget_code_checkbox <- renderPrint({ print(input$checkbox) })
+  output$widget_code_checkboxGroup <- renderPrint({ print(input$checkboxGroup) })
+  output$widget_code_dateInput <- renderPrint({ print(input$dateInput) })
+  output$widget_code_dateRange <- renderPrint({ print(input$dateRange) })
+  output$widget_code_fileInput <- renderPrint({ print(input$fileInput) })
+  output$widget_code_numericInput <- renderPrint({ print(input$numericInput) })
+  output$widget_code_radioButtons <- renderPrint({ print(input$radioButtons) })
+  output$widget_code_selectBox <- renderPrint({ print(input$selectBox) })
+  output$widget_code_slider <- renderPrint({ print(input$slider) })
+  output$widget_code_sliderRange <- renderPrint({ print(input$sliderRange) })
+  output$widget_code_textInput <- renderPrint({ print(input$textInput) })
   
   ## Shiny widget plot
   output$widget_plot <- renderPlot({
