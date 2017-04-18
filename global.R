@@ -3,6 +3,7 @@ library(dplyr)
 library(shiny)
 library(highlight)
 library(ggplot2)
+source("snippets/package_stats.R")
 
 ## Presentation abstract
 title <- HTML(paste("Easing access to R using 'shiny' to create graphical user interfaces:<br/>",
