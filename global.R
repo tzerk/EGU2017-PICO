@@ -22,7 +22,9 @@ about_text <- paste("This presentation was entirely written in <b>R</b> using th
                     tags$a(href = "#", "http://rlum.geographie.uni-koeln.de:3838/EGU2017-PICO/"), tags$br(), tags$br(),
                     "in order to be able to scan the QR codes. If you want to contact the author",
                     "of this presentation you can send an email to", tags$a(href = "#", "christoph.burow@uni-koeln.de"),
-                    ".") %>% 
+                    ".", tags$br(), tags$br(),
+                    actionButton("dummyBtn", "", icon = icon("info-circle"), class = "info-btn"),
+                    "Watch out for these buttons for additional text information!") %>% 
   HTML()
 
 solution_text <- paste("
