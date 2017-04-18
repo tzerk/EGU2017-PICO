@@ -70,7 +70,7 @@ ui <- dashboardPage(
     tags$p(id = "qr_presentation", align = "center",
            tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
     )
-
+    
     ### Uncomment this to show a slider used for CSS zooming (see JQuery code below)
     # tags$hr(id = "qr_hr"),
     # sliderInput("zoom", "Zoom", min = 0.1, max = 2.0, value = 1.0, step = 0.1)
@@ -91,13 +91,13 @@ ui <- dashboardPage(
       tags$script(src = "js/fullscreen.js"),
       tags$link(rel = "stylesheet", type = "text/css", href = "css/style.css")
       
-### Uncomment this code to include JQuery zoom function (buggy on IE)
-#       tags$script("
-# $(document).on('shiny:inputchanged', function(event) {
-#   if (event.name === 'zoom') {
-#     $('body').css('zoom', event.value);
-#   }
-# });")
+      ### Uncomment this code to include JQuery zoom function (buggy on IE)
+      #       tags$script("
+      # $(document).on('shiny:inputchanged', function(event) {
+      #   if (event.name === 'zoom') {
+      #     $('body').css('zoom', event.value);
+      #   }
+      # });")
     ),
     
     tabItems(
@@ -129,7 +129,7 @@ ui <- dashboardPage(
                                  tabPanel("[5]", HTML(affils[[5]]))
                           ))
                     )
-                    )
+                )
               ),
               fluidRow(
                 box(width = 12, solidHeader = FALSE,
@@ -173,7 +173,7 @@ ui <- dashboardPage(
                                                     curve of a CLI &raquo;")),
                                         HTML("<footer>Burow et al. (2016)</footer>"),
                                         HTML("</blockquote>"))
-                                    )
+                             )
                     ),
                     box(width = 6, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
                         title = "The desired outcome produced via...",
@@ -203,7 +203,7 @@ ui <- dashboardPage(
                                                     checkboxInput("solution_hist", "Histogram", FALSE)),
                                              column(width = 3, 
                                                     checkboxInput("solution_dots", "Dots", FALSE))
-                                             ),
+                                    ),
                                     sliderInput("solution_ratio", "Plot ratio", min = 0, max = 1, value = 0.75),
                                     sliderInput("solution_cex", "Scaling", min = 0, max = 1, value = 0.95),
                                     tags$p(HTML(HTML(
@@ -419,19 +419,19 @@ ui <- dashboardPage(
                   )
               ),
               box(title = NULL,
-                     id = "deploy_1",
-                     width = 12,
-                     tabBox(width = 12,
-                            tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
-                                     tags$p("Placeholder")
-                            ),
-                            tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
-                                     tags$p("Placeholder")
-                            ),
-                            tabPanel(title = tagList(icon("desktop"), "Run locally"),
-                                     tags$p("Placeholder")
-                            )
-                     ))
+                  id = "deploy_1",
+                  width = 12,
+                  tabBox(width = 12,
+                         tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
+                                  tags$p("Placeholder")
+                         ),
+                         tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
+                                  tags$p("Placeholder")
+                         ),
+                         tabPanel(title = tagList(icon("desktop"), "Run locally"),
+                                  tags$p("Placeholder")
+                         )
+                  ))
       ),
       ## Luminescence ----
       tabItem("lum_3",
@@ -460,8 +460,8 @@ ui <- dashboardPage(
       tabItem("shinylum_1",
               tabBox(title = HTML("The <b>R</b> package 'RLumShiny'"),
                      width = 12,
-                     tabPanel("tab 1"),
-                     tabPanel("tab 2"))
+                     tabPanel("Applications"),
+                     tabPanel("Functions"))
       ),
       tabItem("shinylum_2",
               tabBox(title = "RLumShiny applications",
@@ -473,15 +473,39 @@ ui <- dashboardPage(
       ),
       tabItem("getstarted",
               box(title = NULL, width = 12,
+                  tags$p("Here you can find a small collection of useful resources to get started."),
                   tabBox(title = NULL, width = 8,
-                    tabPanel(title = HTML("<code>shiny</code>")),
-                    tabPanel(title = HTML("<code>Luminescence</code>")),
-                    tabPanel(title = HTML("<code>RLumShiny</code>"))
+                         tabPanel(title = HTML("<code>shiny</code>"),
+                                  tags$div(class = "table-responsive",
+                                           tags$table(class = "table table-hover table-condensed",
+                                                      tags$thead(tags$th("QR Code"),
+                                                                 tags$th("Link"),
+                                                                 tags$th("Description")
+                                                      ),
+                                                      tags$tbody(
+                                                        tags$tr(
+                                                          tags$td(tags$img(src = "img/qr_shiny-gallery.png", style = "width:100%; max-width: 50px;", border = 0)),
+                                                          tags$td(tags$a(href = "#", "https://shiny.rstudio.com/gallery/")),
+                                                          tags$td(tags$p("Gallery of example apps"))),
+                                                        tags$tr(
+                                                          tags$td(tags$img(src = "img/qr_shiny-tutorial.png", style = "width:100%; max-width: 50px;", border = 0)),
+                                                          tags$td(tags$a(href = "#", "https://shiny.rstudio.com/tutorial/")),
+                                                          tags$td("How to build a Shiny app")
+                                                        )  
+                                                      )
+                                                      
+                                           ) 
+                                  )
+                         ),
+                         tabPanel(title = HTML("<code>Luminescence</code>")),
+                         tabPanel(title = HTML("<code>RLumShiny</code>"))
                   ),
                   box(title = HTML("This presentation"), width = 4, status = "warning",
                       solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
-                      tags$p("Placeholder"))
-                  ))
+                      tags$p("The code of this presentation is freely available on", icon("github"),"GitHub"),
+                      tags$img(src = "img/qr_github.png", style = "width:100%;", border = 0),
+                      div(align = "center", tags$a(id = "github", href = "#", "https://github.com/tzerk/EGU2017-PICO")))
+              ))
     )#EndOf::tabItems
   )#EndOf::dashboardBody
 )#EndOf::BODY

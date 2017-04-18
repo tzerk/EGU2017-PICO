@@ -19,6 +19,12 @@
   font-weight: bold;
 }
 
+@media (min-width: 768px) {
+  #github {
+  font-size: 1vw;
+}
+}
+
 .info-btn {
   color: white;
   font-size: 18px;
