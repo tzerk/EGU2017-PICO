@@ -85,10 +85,6 @@ ui <- dashboardPage(
     ## Include (javascript, css)
     tags$header(
       tags$script(src = "js/fullscreen.js"),
-      tags$script(src = "js/highlight.pack.js"),
-      tags$script(src = "js/shiny-showcase.js"),
-      tags$link(rel = "stylesheet", type = "text/css", href = "js/styles/dracula.css"),
-      tags$script("hljs.initHighlightingOnLoad();"),
       tags$link(rel = "stylesheet", type = "text/css", href = "css/style.css")
     ),
     
@@ -125,15 +121,15 @@ ui <- dashboardPage(
                 box(width = 12, solidHeader = FALSE,
                     title = NULL,
                     fluidRow(width = 12,
-                      column(width = 1,
-                             actionButton("problem", "", icon = icon("info-circle"), class = "info-btn")),
-                      column(width = 11,
-                             div(align = "left", 
-                                 HTML("<blockquote class = 'blockquote-reverse'>"), 
-                                 tags$p(id = "reality", 
-                                        HTML("&laquo; Working with the command-line interface (CLI) of R can be tedious at best and overwhelming at worst. &raquo;")),
-                                 HTML("<footer>An anonymous user<b>R</b></footer>"),
-                                 HTML("</blockquote>"))
+                             column(width = 1,
+                                    actionButton("problem", "", icon = icon("info-circle"), class = "info-btn")),
+                             column(width = 11,
+                                    div(align = "left", 
+                                        HTML("<blockquote class = 'blockquote-reverse'>"), 
+                                        tags$p(id = "reality", 
+                                               HTML("&laquo; Working with the command-line interface (CLI) of R can be tedious at best and overwhelming at worst. &raquo;")),
+                                        HTML("<footer>An anonymous user<b>R</b></footer>"),
+                                        HTML("</blockquote>"))
                              )
                     ),
                     box(width = 6, status = "primary", solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
@@ -148,9 +144,65 @@ ui <- dashboardPage(
       ),
       tabItem("intro_2",
               fluidRow(
-                box(width = 8, status = "primary", solidHeader = TRUE,
-                    title = "Introduction #2")
-              )),
+                box(width = 12, solidHeader = FALSE,
+                    title = NULL,
+                    fluidRow(width = 12,
+                             column(width = 1,
+                                    actionButton("solution", "", icon = icon("info-circle"), class = "info-btn")),
+                             column(width = 11,
+                                    div(align = "left", 
+                                        HTML("<blockquote class = 'blockquote-reverse'>"), 
+                                        tags$p(id = "reality", 
+                                               HTML("&laquo; For users with little or no experience with command-lines (CLI) a 
+                                                    graphical user interface (GUI) offers
+                                                    intuitive access that counteracts the perceived steep learning
+                                                    curve of a CLI &raquo;")),
+                                        HTML("<footer>Burow et al. (2016)</footer>"),
+                                        HTML("</blockquote>"))
+                                    )
+                    ),
+                    box(width = 6, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
+                        title = "The desired outcome produced via...",
+                        tags$p(HTML("<b>Consider the following situation:</b></br> You, as a scientist, are given the task
+                                    to visualise your data in a more complex chart using <b>R</b>. Let us further
+                                    assume that someone else already provided a custom <b>R</b> function that
+                                    produces this kind of non-standard plot (here: <code>plot_AbanicoPlot()</code>). The desired plot may look like the one below.")),
+                        plotOutput("solution_plot")),
+                    tabBox(title = NULL, side = "left",
+                           tabPanel(title = tagList(icon("terminal"), HTML("&nbsp;&nbsp;CLI")), width = 6,
+                                    HTML("For the plot to look like it does right now the user would be required to write the
+                                    following <b>R</b> code:"),
+                                    htmlOutput("solution_plot_code")),
+                           tabPanel(title = tagList(icon("television"), HTML("&nbsp;&nbsp;GUI")), width = 6,
+                                    tags$p(HTML(
+                                      "Alternatively, you could be provided a graphical user interface with input
+                                      widgets that control the numerous arguments of this particular function.
+                                      You would no longer be required to look up all the arguments and their
+                                      required input type and/or structure."
+                                    )),
+                                    fluidRow(width = 12,
+                                             column(width = 3,
+                                                    checkboxInput("solution_rotate", "Rotate", FALSE)),
+                                             column(width = 3, 
+                                                    checkboxInput("solution_kde", "KDE", TRUE)),
+                                             column(width = 3,
+                                                    checkboxInput("solution_hist", "Histogram", FALSE)),
+                                             column(width = 3, 
+                                                    checkboxInput("solution_dots", "Dots", FALSE))
+                                             ),
+                                    sliderInput("solution_ratio", "Plot ratio", min = 0, max = 1, value = 0.75),
+                                    sliderInput("solution_cex", "Scaling", min = 0, max = 1, value = 0.95),
+                                    tags$p(HTML(HTML(
+                                      "To be fair, this is of course only a small subset of input widgets required
+                                      to control all the options listed in the CLI code. But for a user new to <b>R</b>
+                                      we could safely assume that a GUI is the much more comofortable alternative.</br>
+                                      In the next section <code>\"The 'shiny' framework\"</code> you will learn about the basic
+                                      structure of a 'shiny' application, the different input widgets and how to share
+                                      the applications with others."
+                                    )))))
+                )
+              )
+      ),
       
       ## Shiny framework ----
       # Hello Shiny app
@@ -406,6 +458,35 @@ server <- function(input, output, session) {
   observeEvent(input$problem, {
     showModal(modalDialog(title = HTML("The p<b>R</b>oblem"), easyClose = TRUE,
                           problem_text))
+  })
+  
+  output$solution_plot <- renderPlot({
+    solution_plot(data, code = FALSE, 
+                  cex = input$solution_cex, 
+                  ratio = input$solution_ratio,
+                  rotate = input$solution_rotate,
+                  kde = input$solution_kde,
+                  hist = input$solution_hist,
+                  dots = input$solution_dots)
+  })
+  output$solution_plot_code <- renderUI({
+    file <- tempfile()
+    solution_plot(data, code = TRUE, 
+                  cex = input$solution_cex,
+                  ratio = input$solution_ratio,
+                  rotate = input$solution_rotate,
+                  kde = input$solution_kde,
+                  hist = input$solution_hist,
+                  dots = input$solution_dots) %>% 
+      write(file)
+    highlight(file, renderer = renderer_html(), output = NULL) %>% 
+      paste(collapse = "") %>% 
+      HTML()
+  })
+  
+  observeEvent(input$solution, {
+    showModal(modalDialog(title = HTML("A solution?"), easyClose = TRUE,
+                          solution_text))
   })
   
   ## Luminescence

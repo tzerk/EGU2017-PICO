@@ -3,7 +3,9 @@ library(dplyr)
 library(shiny)
 library(highlight)
 library(ggplot2)
+library(Luminescence)
 source("snippets/package_stats.R")
+source("snippets/solution_plot.R")
 
 ## Header
 about_text <- paste("This presentation was entirely written in <b>R</b> using the",
@@ -21,6 +23,11 @@ about_text <- paste("This presentation was entirely written in <b>R</b> using th
                     "in order to be able to scan the QR codes. If you want to contact the author",
                     "of this presentation you can send an email to", tags$a(href = "#", "christoph.burow@uni-koeln.de"),
                     ".") %>% 
+  HTML()
+
+solution_text <- paste("
+                       placeholder
+                       ") %>% 
   HTML()
 
 ## Presentation abstract
@@ -69,6 +76,9 @@ to exploit the full potential of the <b>R</b> command-line. But even
 experienced users may find it tedious to iteratively run the
 function until a satisfying results is produced."
 ) %>% HTML()
+
+## Solution data
+data <- readRDS("data/solution_DeValues.rds")
 
 ## Luminescence functions table
 rlum_fun_df <- readRDS("data/rlum_functions.rds") %>% 
