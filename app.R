@@ -17,10 +17,12 @@ ui <- dashboardPage(
   ##                             HEADER
   ## ------------------------------------------------------------------------ ##
   dashboardHeader(title = "EGU 2017 - PICO",
-                  tags$li(class = "dropdown", 
-                          tags$a(id = "btnFullscreen", icon("arrows-alt"), "Toggle Fullscreen")),
                   tags$li(class = "dropdown",
-                          tags$a(href = "", icon("refresh"), "Reload"))
+                          actionLink("aboutBtn", " About", icon = icon("info-circle"))),
+                  tags$li(class = "dropdown", 
+                          tags$a(id = "btnFullscreen", icon("arrows-alt"), " Toggle Fullscreen")),
+                  tags$li(class = "dropdown",
+                          tags$a(href = "", icon("refresh"), " Reload"))
                   
   ),## EndOf::HEADER
   
@@ -373,6 +375,18 @@ ui <- dashboardPage(
 ####                          SERVER                                          ##
 ################################################################################
 server <- function(input, output, session) {
+  
+  ## Header
+  observeEvent(input$aboutBtn, {
+    showModal(modalDialog(title = "About this presentation", easyClose = TRUE,
+                          tabBox(width = 12,
+                                 tabPanel(icon("info-circle"), about_text),
+                                 tabPanel("sessionInfo()", verbatimTextOutput("session_info"))
+                          )
+    )
+    )
+  })
+  output$session_info <- renderPrint({ sessionInfo() })
   
   ## Introduction
   
