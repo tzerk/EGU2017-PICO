@@ -404,10 +404,34 @@ ui <- dashboardPage(
       ),
       # Deploying apps
       tabItem("shiny_3",
-              tabBox(title = "Sharing shiny applications is simple!",
+              box(title = NULL, width = 12,
+                  fluidRow(width = 12,
+                           column(width = 1,
+                                  actionButton("info_deploy", "", icon = icon("info-circle"), class = "info-btn")),
+                           column(width = 11,
+                                  div(align = "left", 
+                                      HTML("<blockquote class = 'blockquote-reverse'>"), 
+                                      tags$p(id = "reality", 
+                                             HTML("&laquo; Sharing shiny applications is simple! &raquo;")),
+                                      HTML("<footer>Another anonymous user<b>R</b></footer>"),
+                                      HTML("</blockquote>"))
+                           )
+                  )
+              ),
+              box(title = NULL,
                      id = "deploy_1",
                      width = 12,
-                     tags$p("placeholder"))
+                     tabBox(width = 12,
+                            tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
+                                     tags$p("Placeholder")
+                            ),
+                            tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
+                                     tags$p("Placeholder")
+                            ),
+                            tabPanel(title = tagList(icon("desktop"), "Run locally"),
+                                     tags$p("Placeholder")
+                            )
+                     ))
       ),
       ## Luminescence ----
       tabItem("lum_3",
@@ -446,9 +470,20 @@ ui <- dashboardPage(
                      tabPanel("Abanico Plot", uiOutput("abanico")),
                      tabPanel("KDE", uiOutput("kde")),
                      tabPanel("Histogram", uiOutput("hist")))
-      )
-    )
-  )
+      ),
+      tabItem("getstarted",
+              box(title = NULL, width = 12,
+                  tabBox(title = NULL, width = 8,
+                    tabPanel(title = HTML("<code>shiny</code>")),
+                    tabPanel(title = HTML("<code>Luminescence</code>")),
+                    tabPanel(title = HTML("<code>RLumShiny</code>"))
+                  ),
+                  box(title = HTML("This presentation"), width = 4, status = "warning",
+                      solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
+                      tags$p("Placeholder"))
+                  ))
+    )#EndOf::tabItems
+  )#EndOf::dashboardBody
 )#EndOf::BODY
 
 ################################################################################
@@ -543,6 +578,12 @@ server <- function(input, output, session) {
     x <- faithful[ ,2]
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
     hist(x, breaks = bins, col = "darkgray", border = "white")
+  })
+  
+  observeEvent(input$info_deploy, {
+    showModal(modalDialog(title = HTML("Sharing shiny applications"), easyClose = TRUE,
+                          tags$p("Placeholder")
+    ))
   })
   
   ## Shiny widget code
