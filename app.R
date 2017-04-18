@@ -69,10 +69,10 @@ ui <- dashboardPage(
            "Watch this PICO presentation on you smartphone or tablet!"),
     tags$p(id = "qr_presentation", align = "center",
            tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
-    ),
-    tags$hr(id = "qr_hr")
-    
+    )
+
     ### Uncomment this to show a slider used for CSS zooming (see JQuery code below)
+    # tags$hr(id = "qr_hr"),
     # sliderInput("zoom", "Zoom", min = 0.1, max = 2.0, value = 1.0, step = 0.1)
     
     # tags$hr(id = "qr_hr"),
@@ -108,26 +108,28 @@ ui <- dashboardPage(
                     title = "",
                     div(align = "center",
                         tags$p(id = "title", title),
-                        tags$p(id = "authors", authors)
-                    ))
-              ),
-              fluidRow(
-                box(width = 8, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
-                    title = "Abstract",
-                    tabBox(width = 12,
-                           tabPanel("I", HTML(abstract[[1]])),
-                           tabPanel("II", HTML(abstract[[2]])),
-                           tabPanel("III", HTML(abstract[[3]]))
-                    )),
-                box(width = 4, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
-                    title = "Affiliations",
-                    tabBox(width = 12,
-                           tabPanel("[1]", HTML(affils[[1]])),
-                           tabPanel("[2]", HTML(affils[[2]])),
-                           tabPanel("[3]", HTML(affils[[3]])),
-                           tabPanel("[4]", HTML(affils[[4]])),
-                           tabPanel("[5]", HTML(affils[[5]]))
-                    ))
+                        tags$p(id = "authors", authors),
+                        tags$hr()
+                    ),
+                    fluidRow(
+                      box(width = 8, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
+                          title = "Abstract",
+                          tabBox(width = 12,
+                                 tabPanel("I", HTML(abstract[[1]])),
+                                 tabPanel("II", HTML(abstract[[2]])),
+                                 tabPanel("III", HTML(abstract[[3]]))
+                          )),
+                      box(width = 4, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
+                          title = "Affiliations",
+                          tabBox(width = 12,
+                                 tabPanel("[1]", HTML(affils[[1]])),
+                                 tabPanel("[2]", HTML(affils[[2]])),
+                                 tabPanel("[3]", HTML(affils[[3]])),
+                                 tabPanel("[4]", HTML(affils[[4]])),
+                                 tabPanel("[5]", HTML(affils[[5]]))
+                          ))
+                    )
+                    )
               ),
               fluidRow(
                 box(width = 12, solidHeader = FALSE,
