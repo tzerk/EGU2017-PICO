@@ -43,22 +43,22 @@ ui <- dashboardPage(
                 # Menus
                 menuItem("Introduction", icon = icon("play"), tabName = "intro",
                          menuSubItem(HTML("The p<b>R</b>oblem"), icon = icon("question-circle-o"), tabName = "intro_1"),
-                         menuSubItem("A solution?", icon = icon("lightbulb-o"), tabName = "intro_2")),
+                         menuSubItem("A solution", icon = icon("lightbulb-o"), tabName = "intro_2")),
                 
                 menuItem("The 'shiny' framework", icon = icon("star"), tabName = "shiny",
-                         menuSubItem("Hello Shiny!", icon = icon(""), tabName = "shiny_1"),
-                         menuSubItem("Widgets", icon = icon(""), tabName = "shiny_2"),
-                         menuSubItem("Deploying apps", icon = icon(""), tabName = "shiny_3")),
+                         menuSubItem("Hello Shiny!",  tabName = "shiny_1"),
+                         menuSubItem("Widgets", tabName = "shiny_2"),
+                         menuSubItem("Deploying apps", tabName = "shiny_3")),
                 
                 menuItem("From CLI...", icon = icon("terminal"), tabName = "lum",
-                         menuSubItem("'Luminescence' package", icon = icon(""), tabName = "lum_1"),
-                         menuSubItem("How it all started", icon = icon(""), tabName = "lum_2"),
-                         menuSubItem("Current content", icon = icon(""), tabName = "lum_3"),
-                         menuSubItem("Reception", icon = icon(""), tabName = "lum_4")),
+                         menuSubItem("'Luminescence' package", tabName = "lum_1"),
+                         menuSubItem("How it all started", tabName = "lum_2"),
+                         menuSubItem("Current content", tabName = "lum_3"),
+                         menuSubItem("Reception", tabName = "lum_4")),
                 
                 menuItem("...to GUI", icon = icon("television"), tabName = "shinylum",
-                         menuSubItem("'RLumShiny' package", icon = icon(""), tabName = "shinylum_1"),
-                         menuSubItem("Examples", icon = icon(""), tabName = "shinylum_2")),
+                         menuSubItem("'RLumShiny' package", tabName = "shinylum_1"),
+                         menuSubItem("Examples", tabName = "shinylum_2")),
                 
                 menuItem("Get started!", icon = icon("rocket"), tabName = "getstarted")
     ),#EndOf::SideBarMenu
@@ -423,7 +423,8 @@ ui <- dashboardPage(
                   width = 12,
                   tabBox(width = 12,
                          tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
-                                  tags$p("Placeholder")
+                                  tags$p("Placeholder"),
+                                  tags$img(src = "img/deploy_shiny.png", style = "width:100%;", border = 0)
                          ),
                          tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
                                   tags$p("Placeholder")
@@ -563,7 +564,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$solution, {
-    showModal(modalDialog(title = HTML("A solution?"), easyClose = TRUE,
+    showModal(modalDialog(title = HTML("A solution"), easyClose = TRUE,
                           solution_text))
   })
   
