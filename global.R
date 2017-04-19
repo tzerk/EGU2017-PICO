@@ -4,8 +4,7 @@ library(shiny)
 library(highlight)
 library(ggplot2)
 library(Luminescence)
-source("snippets/package_stats.R")
-source("snippets/solution_plot.R")
+sapply(list.files("snippets/", "\\.R$", full.names = TRUE), source)
 
 ## Header
 about_text <- paste("This presentation was entirely written in <b>R</b> using the",
@@ -49,14 +48,14 @@ affils <- list("University of Cologne, Institute of Geography, Department of Geo
 
 ## Problem description
 problem_text <- paste(
-"While <b>R</b> is a comparatively easy-to-learn programming
+  "While <b>R</b> is a comparatively easy-to-learn programming
 language, there is still a steep learning curve until a user
 is able to routinely achieve the desired results. In-depth
 knowledge of <b>R</b> fundamentals is not required when
 working with the 'Luminescence' package, but being
 familiar with the most important data structures in R is
 a must.", tags$br(), tags$br(),
-"In the simplest case, for a specific task, using
+  "In the simplest case, for a specific task, using
 the package only involves a single short function call,
 e.g., ", tags$code("Luminescence::plot AbanicoPlot(data = de.data)"), " to produce
 an abanico plot (Dietze et al., 2016)
@@ -68,12 +67,12 @@ its appearance, this is not possible in <b>R</b>. In <b>R</b> a plot cannot
 be changed after it has been drawn, and the user is required
 to re-run the function call with additional arguments that
 control the appearance of specific plot elements. For the",
-tags$code("Luminescence::plot AbanicoPlot()"), "function
+  tags$code("Luminescence::plot AbanicoPlot()"), "function
 there are currently 33 such arguments, plus additional base
 <b>R</b> arguments that can be used to design the plot to ones
 desire. For more elaborate plots the function call in the <b>R</b>
 command-line rapidly increases in complexity.", tags$br(), tags$br(),
-"Users new to <b>R</b> may feel quickly overwhelmed and may hence not be able
+  "Users new to <b>R</b> may feel quickly overwhelmed and may hence not be able
 to exploit the full potential of the <b>R</b> command-line. But even
 experienced users may find it tedious to iteratively run the
 function until a satisfying results is produced."
@@ -100,8 +99,8 @@ iframe <- list(
                     height = "650px",
                     frameborder = "0"),
   
-  hist = tags$iframe(seamless = "seamless", 
-                     src = "http://rlum.geographie.uni-koeln.de:3838/packages/RLumShiny/inst/shiny/histogram/", 
+  cosmic = tags$iframe(seamless = "seamless", 
+                     src = "http://rlum.geographie.uni-koeln.de:3838/packages/RLumShiny/inst/shiny/cosmicdose/", 
                      width = "100%", 
                      height = "650px",
                      frameborder = "0")
@@ -137,3 +136,29 @@ get_buttonMsg <- function(x) {
 
 # gg plot themes
 ggtheme <- list(theme_bw(), theme_classic(), theme_dark())
+
+## RLumShiny
+rlumshiny_app_df <- data.frame(
+  Application = c("Abanico Plot", 
+                  "Radial Plot", 
+                  "Histogram", 
+                  "Kernel Density Estimate Plot", 
+                  "Dose Recovery Test", 
+                  "Cosmic Dose Rate",
+                  "CW Curve Transformation"),
+  Function = c("plot_AbanicoPlot()",
+               "plot_RadialPlot()",
+               "plot_Histogram()",
+               "plot_KDE()",
+               "plot_DRTResults()",
+               "calc_CosmicDoseRate()",
+               "CW2pHMi(), CW2pLM(), CW2pLMi(), CW2pPMi()")
+)
+
+rlumshiny_fun_df <- data.frame(
+  Function = c("app_RLum()", "jscolorInput()", "popover()", "tooltip()"),
+  Description = c("Run luminescence shiny applications", 
+                  "Creates a JSColor widget to be used in shiny applications.",
+                  "Create a bootstrap button with popover.",
+                  "Create bootstrap tooltips for any HTML element to be used in shiny applications.")
+)

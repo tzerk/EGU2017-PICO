@@ -1,6 +1,7 @@
 # Dependencies
 library(shiny)
 library(shinydashboard)
+library(RLumShiny)
 library(ggplot2)
 library(dplyr)
 library(zoo)
@@ -50,15 +51,15 @@ ui <- dashboardPage(
                          menuSubItem("Widgets", tabName = "shiny_2"),
                          menuSubItem("Deploying apps", tabName = "shiny_3")),
                 
-                menuItem("From CLI...", icon = icon("terminal"), tabName = "lum",
-                         menuSubItem("'Luminescence' package", tabName = "lum_1"),
-                         menuSubItem("How it all started", tabName = "lum_2"),
-                         menuSubItem("Current content", tabName = "lum_3"),
-                         menuSubItem("Reception", tabName = "lum_4")),
+                menuItem("'Luminescence' package", icon = icon("terminal"), tabName = "lum",
+                         menuSubItem("How it all started", tabName = "lum_1"),
+                         menuSubItem("Current content", tabName = "lum_2"),
+                         menuSubItem("Reception", tabName = "lum_3")),
                 
-                menuItem("...to GUI", icon = icon("television"), tabName = "shinylum",
+                menuItem("'RLumShiny' package", icon = icon("television"), tabName = "shinylum",
                          menuSubItem("'RLumShiny' package", tabName = "shinylum_1"),
-                         menuSubItem("Examples", tabName = "shinylum_2")),
+                         menuSubItem("Extending 'shiny'", tabName = "shinylum_2"),
+                         menuSubItem("Examples", tabName = "shinylum_3")),
                 
                 menuItem("Get started!", icon = icon("rocket"), tabName = "getstarted")
     ),#EndOf::SideBarMenu
@@ -173,8 +174,8 @@ ui <- dashboardPage(
                                                     curve of a CLI &raquo;")),
                                         HTML("<footer>Burow et al. (2016)</footer>"),
                                         HTML("</blockquote>"))
-                             )
-                    ),
+                                        )
+                                    ),
                     box(width = 6, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
                         title = "The desired outcome produced via...",
                         tags$p(HTML("<b>Consider the following situation:</b></br> You, as a scientist, are given the task
@@ -185,7 +186,7 @@ ui <- dashboardPage(
                     tabBox(title = NULL, side = "left",
                            tabPanel(title = tagList(icon("terminal"), HTML("&nbsp;&nbsp;CLI")), width = 6,
                                     HTML("For the plot to look like it does right now the user would be required to write the
-                                    following <b>R</b> code:"),
+                                         following <b>R</b> code:"),
                                     htmlOutput("solution_plot_code")),
                            tabPanel(title = tagList(icon("television"), HTML("&nbsp;&nbsp;GUI")), width = 6,
                                     tags$p(HTML(
@@ -214,9 +215,9 @@ ui <- dashboardPage(
                                       structure of a 'shiny' application, the different input widgets and how to share
                                       the applications with others."
                                     )))))
-                )
-              )
-      ),
+                                    )
+                                    )
+                           ),
       
       ## Shiny framework ----
       # Hello Shiny app
@@ -230,7 +231,7 @@ ui <- dashboardPage(
                 box(width = 6, status = "primary", solidHeader = TRUE,
                     title = "Hello Shiny!",
                     plotOutput("helloshiny"),
-                    sliderInput("bins", "Number of bins:", min = 1, max = 50, value = 30)
+                    sliderInput("bins", "Number of bins:", min = 1, max = 50, value = 30, animate = TRUE)
                 )
               )
       ),
@@ -340,9 +341,9 @@ ui <- dashboardPage(
                                         textInput("textInput", "Text input", placeholder = "Enter text...")
                                     )
                            )
-                       )
+                           )
                        ##
-                ),
+                       ),
                 column(width = 6,
                        tabBox(width = 12,
                               title = NULL,
@@ -416,31 +417,33 @@ ui <- dashboardPage(
                                       HTML("<footer>Another anonymous user<b>R</b></footer>"),
                                       HTML("</blockquote>"))
                            )
-                  )
-              ),
-              box(title = NULL,
-                  id = "deploy_1",
-                  width = 12,
-                  tabBox(width = 12,
-                         tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
-                                  tags$p("Placeholder"),
-                                  tags$img(src = "img/deploy_shiny.png", style = "width:100%;", border = 0)
-                         ),
-                         tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
-                                  tags$p("Placeholder")
-                         ),
-                         tabPanel(title = tagList(icon("desktop"), "Run locally"),
-                                  tags$p("Placeholder")
-                         )
-                  ))
+                  ),
+                  box(title = NULL,  solidHeader = FALSE, status = "success", 
+                      id = "deploy_1",
+                      width = 12,
+                      tabBox(width = 12, title = NULL,
+                             tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
+                                      tags$p("Placeholder"),
+                                      tags$img(src = "img/deploy_shiny_shinyapps.io.png", style = "width:100%;", border = 0)
+                             ),
+                             tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
+                                      tags$p("Placeholder"),
+                                      tags$img(src = "img/deploy_shiny_shiny-server.png", style = "width:100%;", border = 0)
+                             ),
+                             tabPanel(title = tagList(icon("desktop"), "Run locally"),
+                                      tags$p("Placeholder"),
+                                      tags$img(src = "img/deploy_shiny_local.png", style = "width:100%;", border = 0)
+                             )
+                      ))
+              )
       ),
       ## Luminescence ----
-      tabItem("lum_3",
+      tabItem("lum_2",
               box(width = 12, status = "primary", solidHeader = FALSE,
                   title = HTML("Functions in the <b>R</b> package 'Luminescence' (v0.8.0)"),
                   dataTableOutput("lum_functions"))
       ),
-      tabItem("lum_4",
+      tabItem("lum_3",
               box(width = 4, status = "primary", solidHeader = TRUE, collapsible = TRUE,
                   title = HTML("Statistics"),
                   radioButtons("cran_package", "R package", 
@@ -461,45 +464,67 @@ ui <- dashboardPage(
       tabItem("shinylum_1",
               tabBox(title = HTML("The <b>R</b> package 'RLumShiny'"),
                      width = 12,
-                     tabPanel("Applications"),
-                     tabPanel("Functions"))
+                     tabPanel("Applications",
+                              dataTableOutput("rlumshiny_app")),
+                     tabPanel("Functions",
+                              dataTableOutput("rlumshiny_fun")
+                     ))
       ),
       tabItem("shinylum_2",
+              
+              box(width = 12, solidHeader = FALSE,
+                  title = NULL,
+                  fluidRow(width = 12,
+                           column(width = 1,
+                                  actionButton("extending_shiny", "", icon = icon("info-circle"), class = "info-btn")),
+                           column(width = 11,
+                                  div(align = "left", 
+                                      HTML("<blockquote class = 'blockquote-reverse'>"), 
+                                      tags$p(id = "reality", 
+                                             HTML("&laquo; Some important quote &raquo;")),
+                                      HTML("<footer>Someone clever</footer>"),
+                                      HTML("</blockquote>"))
+                           )
+                  ),
+                  box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
+                      title = "jscolorInput()",
+                      tags$p(HTML("Placeholder")),
+                      jscolorInput("jscolorInput"),
+                      verbatimTextOutput("jscolorInput")
+                  ),
+                  box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
+                      title = "popover()",
+                      tags$p(HTML("Placeholder")),
+                      popover("Click me!", content = HTML("Add small overlays of content for housing secondary information."), html = TRUE, header = "Great success!")
+                  ),
+                  box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
+                      title = "tooltip()",
+                      tags$p(HTML("Placeholder")),
+                      actionButton("tooltipBtn", "Click me too!"),
+                      tooltip("tooltipBtn", text = "Even greater success!", trigger = "click")
+                  )
+              )
+      ),
+      tabItem("shinylum_3",
               tabBox(title = "RLumShiny applications",
                      id = "examples_1",
                      width = 12,
                      tabPanel("Abanico Plot", uiOutput("abanico")),
                      tabPanel("KDE", uiOutput("kde")),
-                     tabPanel("Histogram", uiOutput("hist")))
+                     tabPanel("Cosmic Dose Rate", uiOutput("cosmic")))
       ),
       tabItem("getstarted",
               box(title = NULL, width = 12,
                   tags$p("Here you can find a small collection of useful resources to get started."),
                   tabBox(title = NULL, width = 8,
                          tabPanel(title = HTML("<code>shiny</code>"),
-                                  tags$div(class = "table-responsive",
-                                           tags$table(class = "table table-hover table-condensed",
-                                                      tags$thead(tags$th("QR Code"),
-                                                                 tags$th("Link"),
-                                                                 tags$th("Description")
-                                                      ),
-                                                      tags$tbody(
-                                                        tags$tr(
-                                                          tags$td(tags$img(src = "img/qr_shiny-gallery.png", style = "width:100%; max-width: 50px;", border = 0)),
-                                                          tags$td(tags$a(href = "#", "https://shiny.rstudio.com/gallery/")),
-                                                          tags$td(tags$p("Gallery of example apps"))),
-                                                        tags$tr(
-                                                          tags$td(tags$img(src = "img/qr_shiny-tutorial.png", style = "width:100%; max-width: 50px;", border = 0)),
-                                                          tags$td(tags$a(href = "#", "https://shiny.rstudio.com/tutorial/")),
-                                                          tags$td("How to build a Shiny app")
-                                                        )  
-                                                      )
-                                                      
-                                           ) 
-                                  )
+                                  info_table_shiny()
                          ),
-                         tabPanel(title = HTML("<code>Luminescence</code>")),
-                         tabPanel(title = HTML("<code>RLumShiny</code>"))
+                         tabPanel(title = HTML("<code>Luminescence</code>"),
+                                  info_table_lum()
+                                  ),
+                         tabPanel(title = HTML("<code>RLumShiny</code>"),
+                                  info_table_rlumshiny())
                   ),
                   box(title = HTML("This presentation"), width = 4, status = "warning",
                       solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
@@ -507,14 +532,16 @@ ui <- dashboardPage(
                       tags$img(src = "img/qr_github.png", style = "width:100%;", border = 0),
                       div(align = "center", tags$a(id = "github", href = "#", "https://github.com/tzerk/EGU2017-PICO")))
               ))
-    )#EndOf::tabItems
-  )#EndOf::dashboardBody
-)#EndOf::BODY
+                    )#EndOf::tabItems
+                                    )#EndOf::dashboardBody
+  )#EndOf::BODY
 
 ################################################################################
 ####                          SERVER                                          ##
 ################################################################################
 server <- function(input, output, session) {
+  
+  ## General settings
   
   ## Header
   observeEvent(input$aboutBtn, {
@@ -659,6 +686,23 @@ server <- function(input, output, session) {
   }, options = list(pageLength = 10, pagingType = "full", 
                     searching = FALSE, lengthChange = FALSE))
   
+  ## RLumShiny application table
+  output$rlumshiny_app <- renderDataTable({
+    rlumshiny_app_df
+  }, options = list(pageLength = 10, pagingType = "full", 
+                    searching = FALSE, lengthChange = FALSE))
+  
+  ## RLumShiny functions table
+  output$rlumshiny_fun <- renderDataTable({
+    rlumshiny_fun_df
+  }, options = list(pageLength = 10, pagingType = "full", 
+                    searching = FALSE, lengthChange = FALSE))
+  
+  ## RLumShiny extending shiny
+  output$jscolorInput <- renderPrint({
+    input$jscolorInput
+  })
+
   ## RLumShiny example applications
   output$abanico <- renderUI({
     iframe$abanico
@@ -666,8 +710,8 @@ server <- function(input, output, session) {
   output$kde <- renderUI({
     iframe$kde
   })
-  output$hist <- renderUI({
-    iframe$hist
+  output$cosmic <- renderUI({
+    iframe$cosmic
   })
   
 }

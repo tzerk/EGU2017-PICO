@@ -25,6 +25,12 @@
 }
 }
 
+.qr-table {
+  width: 100%; 
+  min-width: 50px;
+  max-width: 75px;
+}
+
 .info-btn {
   color: white;
   font-size: 18px;
