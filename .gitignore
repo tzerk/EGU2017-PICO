@@ -44,3 +44,4 @@ vignettes/*.pdf
 snippets/make_fancy_plot.R
 snippets/mydata.txt
 misc/
+*.ai
