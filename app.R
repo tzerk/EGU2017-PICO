@@ -6,6 +6,7 @@ library(ggplot2)
 library(dplyr)
 library(zoo)
 library(rworldmap)
+library(leaflet)
 source("global.R")
 
 
@@ -57,7 +58,7 @@ ui <- dashboardPage(
                          menuSubItem("Reception", tabName = "lum_3")),
                 
                 menuItem("'RLumShiny' package", icon = icon("television"), tabName = "shinylum",
-                         menuSubItem("'RLumShiny' package", tabName = "shinylum_1"),
+                         menuSubItem("Motivation & Content", tabName = "shinylum_1"),
                          menuSubItem("Extending 'shiny'", tabName = "shinylum_2"),
                          menuSubItem("Examples", tabName = "shinylum_3")),
                 
@@ -496,13 +497,22 @@ ui <- dashboardPage(
       
       ## RLumShiny ----
       tabItem("shinylum_1",
-              tabBox(title = HTML("The <b>R</b> package 'RLumShiny'"),
-                     width = 12,
-                     tabPanel("Applications",
-                              dataTableOutput("rlumshiny_app")),
-                     tabPanel("Functions",
-                              dataTableOutput("rlumshiny_fun")
-                     ))
+              fluidRow(width = 12,
+                       column(width = 4,
+                              box(width = 12, status = "warning", solidheader = TRUE, collapsible = TRUE,
+                                  title = HTML("Motivation")
+                                  )
+                              ),
+                       column(width = 8,
+                              tabBox(title = HTML("Current content of <code>RLumShiny</code>"),
+                                     width = 12,
+                                     tabPanel("Applications",
+                                              dataTableOutput("rlumshiny_app")),
+                                     tabPanel("Functions",
+                                              dataTableOutput("rlumshiny_fun")
+                                     ))
+                              )
+                       )
       ),
       tabItem("shinylum_2",
               
@@ -781,6 +791,33 @@ server <- function(input, output, session) {
   output$jscolor_plot <- renderPlot({
     ggplot(diamonds, aes(carat)) +
       geom_histogram(binwidth = 0.01, fill = input$jscolorInput)
+  })
+  observeEvent(input$extending_shiny, {
+    showModal(modalDialog(title = "Extending Shiny", easyClose = TRUE,
+                          tags$p(HTML(
+                            "The shiny framework can easily be extended by either writing your own extensions or
+                            by including external JavaScript code or libraries. This is possible due to how <code>shiny</code>
+                            works internally. From the <b>R</b> code of a shiny application an HTML file is generated, which
+                            also includes a custom JavaScript library that enables the bidirectional communication between <b>R</b>
+                            and the rendered webpage. The framework is further designed in a way to be easily extensible with only little <b>R</b>
+                            code and a few lines of JavaScript. Since there are many great JavaScript libraries already available
+                            the potential for increasing the capabilities of <b>R</b> is tremendous. While the <b>R</b>
+                            package <code>RLumShiny</code> also includes some extensions to shiny, a much more impressive
+                            integration of a JavaScript library is that of, e.g., Leaflet (<a href = '#'>http://leafletjs.com/</a>), a popular open-source library
+                            for interactive maps using the <b>R</b> package <code>leaflet</code> (see example below)."
+                          )),
+                          verbatimTextOutput("leaflet_event"),
+                          leafletOutput("leaflet")
+                          ))
+  })
+  output$leaflet <- renderLeaflet({
+    leaflet() %>% 
+      addProviderTiles(providers$OpenStreetMap) %>% 
+      setView(lng = 16.413686, lat = 48.234910, zoom = 17) %>% 
+      addMeasure()
+  })
+  output$leaflet_event <- renderPrint({
+    input$leaflet_click
   })
   
   ## RLumShiny example applications
