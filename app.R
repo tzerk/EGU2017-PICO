@@ -147,10 +147,10 @@ ui <- dashboardPage(
                                         HTML("</blockquote>"))
                              )
                     ),
-                    box(width = 6, status = "primary", solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
+                    box(width = 6, status = "primary", solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
                         title = "Expectation",
                         tags$img(src = "img/expectation.gif", style = "width:100%;", border = 0)),
-                    box(width = 6, status = "danger", solidHeader = TRUE, collapsible = TRUE, collapsed = FALSE,
+                    box(width = 6, status = "danger", solidHeader = TRUE, collapsible = TRUE, collapsed = TRUE,
                         title = "Reality",
                         tags$img(src = "img/reality.gif", style = "width:100%;", border = 0))
                     
@@ -174,19 +174,26 @@ ui <- dashboardPage(
                                                     curve of a CLI &raquo;")),
                                         HTML("<footer>Burow et al. (2016)</footer>"),
                                         HTML("</blockquote>"))
-                                        )
-                                    ),
+                             )
+                    ),
                     box(width = 6, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
-                        title = "The desired outcome produced via...",
-                        tags$p(HTML("<b>Consider the following situation:</b></br> You, as a scientist, are given the task
+                        title = tagList(icon("bar-chart"), HTML("&nbsp;&nbsp;Creating a plot: a common task in <b>R</b>")),
+                        tags$p(HTML("<b>Consider the following situation:</b></br> You, as a scientist, are facing the task
                                     to visualise your data in a more complex chart using <b>R</b>. Let us further
                                     assume that someone else already provided a custom <b>R</b> function that
-                                    produces this kind of non-standard plot (here: <code>plot_AbanicoPlot()</code>). The desired plot may look like the one below.")),
+                                    produces this kind of non-standard plot (here: <code>plot_AbanicoPlot()</code>). 
+                                    The desired plot may look like the one below.")),
                         plotOutput("solution_plot")),
-                    tabBox(title = NULL, side = "left",
+                    tabBox(title = "Two approaches", side = "left",
                            tabPanel(title = tagList(icon("terminal"), HTML("&nbsp;&nbsp;CLI")), width = 6,
-                                    HTML("For the plot to look like it does right now the user would be required to write the
-                                         following <b>R</b> code:"),
+                                    HTML("Naturally, to complete the task you would fire up the <b>R</b> command-line and 
+                                        start hacking away. Assuming we have the data already in place, the essential part is 
+                                        is the call of the specific plotting function.
+                                        For the plot to look like it does right now the user would be required to write the
+                                        <b>R</b> code below. To be fair, some or even most of the arguments do not to be explicitly
+                                        specified if their default values are sufficient. But there is still an overwhelming
+                                         number of arguments that need to be recognized and used to make the plot appear
+                                         exactly as seen on the left-hand side."),
                                     htmlOutput("solution_plot_code")),
                            tabPanel(title = tagList(icon("television"), HTML("&nbsp;&nbsp;GUI")), width = 6,
                                     tags$p(HTML(
@@ -215,9 +222,9 @@ ui <- dashboardPage(
                                       structure of a 'shiny' application, the different input widgets and how to share
                                       the applications with others."
                                     )))))
-                                    )
-                                    )
-                           ),
+                )
+              )
+      ),
       
       ## Shiny framework ----
       # Hello Shiny app
@@ -341,9 +348,9 @@ ui <- dashboardPage(
                                         textInput("textInput", "Text input", placeholder = "Enter text...")
                                     )
                            )
-                           )
+                       )
                        ##
-                       ),
+                ),
                 column(width = 6,
                        tabBox(width = 12,
                               title = NULL,
@@ -423,15 +430,42 @@ ui <- dashboardPage(
                       width = 12,
                       tabBox(width = 12, title = NULL,
                              tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
-                                      tags$p("Placeholder"),
+                                      tags$p(
+                                        HTML(
+                                          "The easist and fastest way to share your self-written shiny applications
+                                          is by using the commercial service <a href = '#'>Shinyapps.io</a> by RStudio. 
+                                          On this self-service platform users can upload, run and share their shiny
+                                          applications. The service offers different subscription plans depending
+                                          on the desired number of allowed applications, service availability and
+                                          feature content. A free subscription is also available."
+                                        )
+                                      ),
                                       tags$img(src = "img/deploy_shiny_shinyapps.io.png", style = "width:100%;", border = 0)
                              ),
                              tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
-                                      tags$p("Placeholder"),
+                                      tags$p(
+                                        HTML(
+                                          "If you do not want to rely on a third-party service to host your shiny
+                                          applications there is also the option to host your own instance of 
+                                          <code>Shiny-Server</code>. Naturally, apart from the software itself, which is
+                                          also available in an open-source version, a server or suitable webspace
+                                          is required beforehand. While setting up a server yourself requires more
+                                          preparation, knowledge and potentially costs, the benefit of having full
+                                          control over the service can very well be justified."
+                                        )
+                                      ),
                                       tags$img(src = "img/deploy_shiny_shiny-server.png", style = "width:100%;", border = 0)
                              ),
                              tabPanel(title = tagList(icon("desktop"), "Run locally"),
-                                      tags$p("Placeholder"),
+                                      tags$p(
+                                        HTML(
+                                          "Sharing shiny applications over the internet is not a must, it is always possible
+                                          to run any shiny application locally on any computer with a working instance
+                                          of <b>R</b> and RStudio. Shiny applications can also be included in <b>R</b> packages (like <code>RLumShiny</code>), which
+                                          can be downloaded e.g. from GitHub or, of course, from CRAN. Running a shiny application
+                                          on your local computer does require a HTML5 compliant webbrowser, but no internet connection!"
+                                        )
+                                      ),
                                       tags$img(src = "img/deploy_shiny_local.png", style = "width:100%;", border = 0)
                              )
                       ))
@@ -488,18 +522,36 @@ ui <- dashboardPage(
                   ),
                   box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
                       title = "jscolorInput()",
-                      tags$p(HTML("Placeholder")),
+                      tags$p(HTML(paste(
+                        "<code>jscolorInput(inputId, label, value, position = 'bottom',
+                        color = 'transparent', mode = 'HSV', slider = TRUE, close = FALSE)</code>",
+                        "</br></br>The <code>RLumShiny</code> package includes the JavaScript library
+                        jscolor (<a href = '#'>http://jscolor.com/</a>) along with a function to
+                        create a JSColor (Javascript/HTML Color Picker) widget to be used in shiny applications."
+                      )
+                      )),
                       jscolorInput("jscolorInput"),
-                      verbatimTextOutput("jscolorInput")
+                      verbatimTextOutput("jscolorInput"),
+                      plotOutput("jscolor_plot")
                   ),
                   box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
                       title = "popover()",
-                      tags$p(HTML("Placeholder")),
-                      popover("Click me!", content = HTML("Add small overlays of content for housing secondary information."), html = TRUE, header = "Great success!")
+                      tags$p(HTML(paste(
+                        "<code>popover(title, content, header = NULL, html = TRUE,
+                          class = 'btn btn-default', placement = c('right', 'top', 'left',
+                          'bottom'), trigger = c('click', 'hover', 'focus', 'manual'))</code>",
+                        "</br></br>Create a bootstrap button with popover, i.e. a small overlays of content for housing secondary information."
+                      )
+                      )),
+                      popover("Click me!", content = HTML("Some amazing content."), html = TRUE, header = "Great success!")
                   ),
                   box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
                       title = "tooltip()",
-                      tags$p(HTML("Placeholder")),
+                      tags$p(HTML(paste(
+                        "<code>tooltip(refId, text, attr = NULL, animation = TRUE, delay = 100, html = TRUE, placement = 'auto', trigger = 'hover')</code>",
+                        "</br></br>Create bootstrap tooltips for any HTML element to be used in shiny applications."
+                      )
+                      )),
                       actionButton("tooltipBtn", "Click me too!"),
                       tooltip("tooltipBtn", text = "Even greater success!", trigger = "click")
                   )
@@ -509,9 +561,33 @@ ui <- dashboardPage(
               tabBox(title = "RLumShiny applications",
                      id = "examples_1",
                      width = 12,
-                     tabPanel("Abanico Plot", uiOutput("abanico")),
-                     tabPanel("KDE", uiOutput("kde")),
-                     tabPanel("Cosmic Dose Rate", uiOutput("cosmic")))
+                     tabPanel("Abanico Plot",
+                              tags$p(HTML(
+                                "Application for: <code>Luminescence::plot_AbanicoPlot()</code></br></br>
+                                The Abanico Plot is a combination of the classic Radial Plot and a kernel density estimate plot.
+                                It allows straightforward visualisation of data precision, error scatter around
+                                a user-defined central value and the combined distribution of the values, 
+                                on the actual scale of the measured data (e.g. seconds, equivalent dose, years). 
+                                The principle of the plot is shown in Galbraith & Green (1990)."
+                              )),
+                              uiOutput("abanico")),
+                     tabPanel("KDE",
+                              tags$p(HTML(
+                                "Application for: <code>Luminescence::plot_KDE()</code></br></br>
+                                Plot a kernel density estimate of measurement values in combination with the actual values
+                                and associated error bars in ascending order. Optionally, statistical measures such as
+                                mean, median, standard deviation, standard error and quartile range can be provided
+                                visually and numerically."
+                              )),
+                              uiOutput("kde")),
+                     tabPanel("Cosmic Dose Rate",
+                              tags$p(HTML(
+                                "Application for: <code>Luminescence::calc_CosmicDoseRate()</code></br></br>
+                                This application calculates the cosmic dose rate taking into account the soft- and hard-component
+                                of the cosmic ray flux and allows corrections for geomagnetic latitude, altitude above sea-level
+                                and geomagnetic field changes."
+                              )),
+                              uiOutput("cosmic")))
       ),
       tabItem("getstarted",
               box(title = NULL, width = 12,
@@ -522,7 +598,7 @@ ui <- dashboardPage(
                          ),
                          tabPanel(title = HTML("<code>Luminescence</code>"),
                                   info_table_lum()
-                                  ),
+                         ),
                          tabPanel(title = HTML("<code>RLumShiny</code>"),
                                   info_table_rlumshiny())
                   ),
@@ -532,9 +608,9 @@ ui <- dashboardPage(
                       tags$img(src = "img/qr_github.png", style = "width:100%;", border = 0),
                       div(align = "center", tags$a(id = "github", href = "#", "https://github.com/tzerk/EGU2017-PICO")))
               ))
-                    )#EndOf::tabItems
-                                    )#EndOf::dashboardBody
-  )#EndOf::BODY
+    )#EndOf::tabItems
+  )#EndOf::dashboardBody
+)#EndOf::BODY
 
 ################################################################################
 ####                          SERVER                                          ##
@@ -623,7 +699,7 @@ server <- function(input, output, session) {
   
   observeEvent(input$hello_shiny_modal, {
     showModal(modalDialog(title = HTML("What is <code>Ui.R</code> and <code>Server.R</code>?"), easyClose = TRUE,
-                          tags$p("Content")))
+                          hello_shiny_text))
   })
   
   output$helloshiny <- renderPlot({
@@ -634,7 +710,7 @@ server <- function(input, output, session) {
   
   observeEvent(input$info_deploy, {
     showModal(modalDialog(title = HTML("Sharing shiny applications"), easyClose = TRUE,
-                          tags$p("Placeholder")
+                          deploy_text
     ))
   })
   
@@ -702,7 +778,11 @@ server <- function(input, output, session) {
   output$jscolorInput <- renderPrint({
     input$jscolorInput
   })
-
+  output$jscolor_plot <- renderPlot({
+    ggplot(diamonds, aes(carat)) +
+      geom_histogram(binwidth = 0.01, fill = input$jscolorInput)
+  })
+  
   ## RLumShiny example applications
   output$abanico <- renderUI({
     iframe$abanico
