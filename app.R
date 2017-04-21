@@ -499,16 +499,42 @@ ui <- dashboardPage(
       tabItem("shinylum_1",
               fluidRow(width = 12,
                        column(width = 4,
-                              box(width = 12, status = "warning", solidheader = TRUE, collapsible = TRUE,
-                                  title = HTML("Motivation")
+                              box(width = 12, status = "warning", solidHeader = TRUE, collapsible = TRUE,
+                                  title = HTML("Motivation"),
+                                  tags$p(HTML(
+                                    "The general motivations have already been outlined in the introduction.
+                                    In short, using the <b>R</b> command-line can be tedious, even if your
+                                    experienced in <b>R</b>. If you are new to <b>R</b> and only want to quickly
+                                    produce a plot, the initial experience can be overwhelming. </br></br>
+                                    In the context of the <b>R</b> package <code>Luminescence</code> over the time we learned
+                                    that many colleagues were struggling 
+                                    to get started with the package. While writing tutorials and manuals helped
+                                    to ease the access to the package, it still takes a certain amount of dedication
+                                    to learn the basic functionality of the package. Quite understandably many colleagues
+                                    do not feel like having to learn basic <b>R</b> programming first only to use a very small
+                                    subset of functions provided by the package. By providing a GUI to at least some
+                                    of the more basic and/or 'popular' functions of the <code>Luminescence</code> package
+                                    we can are able to practically remove these restrictions and make both <b>R</b> and
+                                    the <code>Luminescence</code> more accessible to our colleagues."
+                                  ))
                                   )
                               ),
                        column(width = 8,
                               tabBox(title = HTML("Current content of <code>RLumShiny</code>"),
                                      width = 12,
                                      tabPanel("Applications",
+                                              tags$p(HTML("Shiny applications available in the <b>R</b> package <code>RLumShiny</code> (v0.1.1). 
+                                                           Each application can be started using the function app_RLum() with a 
+                                                           corresponding keyword as input for the parameter app
+                                                           (e.g., <code>app_RLum(app = 'abanico')</code>). All functions are part of the <code>Luminescence</code> package.
+                                                          See the 'Examples' section to test some of the listed applications yourself!")),
                                               dataTableOutput("rlumshiny_app")),
                                      tabPanel("Functions",
+                                              tags$p(HTML(
+                                                "Functions in the <b>R</b> package <code>RLumShiny</code> (v0.1.1). The main function is <code>app_RLum()</code>, which must be used to start
+                                                any of the applications given in the other table. All other functions are used internally and extend the functionality of the <code>shiny</code>
+                                                package (see 'Extending shiny' section)."
+                                              )),
                                               dataTableOutput("rlumshiny_fun")
                                      ))
                               )
