@@ -5,6 +5,11 @@
   font-size: 90%;
 }
 
+.highlight-sidebar {
+  color: white;
+  font-weight: bold;
+}
+
 #title {
   font-size: 20px;
   font-weight: bold;

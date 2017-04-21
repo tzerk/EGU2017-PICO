@@ -52,12 +52,12 @@ ui <- dashboardPage(
                          menuSubItem("Widgets", tabName = "shiny_2"),
                          menuSubItem("Deploying apps", tabName = "shiny_3")),
                 
-                menuItem("'Luminescence' package", icon = icon("terminal"), tabName = "lum",
+                menuItem(HTML("<span class='highlight-sidebar'>CLI</span> Luminescence package"), icon = icon("terminal"), tabName = "lum",
                          menuSubItem("How it all started", tabName = "lum_1"),
                          menuSubItem("Current content", tabName = "lum_2"),
                          menuSubItem("Reception", tabName = "lum_3")),
                 
-                menuItem("'RLumShiny' package", icon = icon("television"), tabName = "shinylum",
+                menuItem(HTML("<span class='highlight-sidebar'>GUI</span> RLumShiny package"), icon = icon("television"), tabName = "shinylum",
                          menuSubItem("Motivation & Content", tabName = "shinylum_1"),
                          menuSubItem("Extending 'shiny'", tabName = "shinylum_2"),
                          menuSubItem("Examples", tabName = "shinylum_3")),
