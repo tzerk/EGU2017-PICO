@@ -43,5 +43,5 @@ vignettes/*.pdf
 .Rprofile
 snippets/make_fancy_plot.R
 snippets/mydata.txt
-misc/
+misc/pkg*
 *.ai
