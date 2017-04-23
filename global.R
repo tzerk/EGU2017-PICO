@@ -32,8 +32,8 @@ title <- HTML(paste("Easing access to R using 'shiny' to create graphical user i
 
 abstract <- as.list(strsplit(paste(readLines("snippets/abstract.txt", warn = FALSE), collapse = ""), "<br/>")[[1]])
 
-authors <- HTML(paste("Christoph Burow[1], Sebastian Kreutzer[2], Michael Dietze[3], Margret C. Fuchs[4],",
-                      "Christoph Schmidt[5], Manfred Fischer[5], Helmut Br&uuml;ckner[1]"))
+authors <- HTML(paste("Christoph Burow<sup>1</sup>, Sebastian Kreutzer<sup>2</sup>, Michael Dietze<sup>3</sup>, Margret C. Fuchs<sup>4</sup>,",
+                      "Christoph Schmidt<sup>5</sup>, Manfred Fischer<sup>5</sup>, Helmut Br&uuml;ckner<sup>1</sup>"))
 
 affils <- list("University of Cologne, Institute of Geography, Department of Geosciences, Cologne, Germany (christoph.burow@uni-koeln.de)",
                "IRAMAT-CRP2A, Universit&eacute; Bordeaux Montaigne, Maison d'Arch&eacute;ologie, Esplanades des Antilles, 33607 Pessac Cedex, France",

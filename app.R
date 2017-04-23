@@ -52,17 +52,19 @@ ui <- dashboardPage(
                          menuSubItem("Widgets", tabName = "shiny_2"),
                          menuSubItem("Deploying apps", tabName = "shiny_3")),
                 
-                menuItem(HTML("<span class='highlight-sidebar'>CLI</span> Luminescence package"), icon = icon("terminal"), tabName = "lum",
+                menuItem(HTML("<span class='highlight-sidebar'>CLI</span> - <span class='sidebar-small'>'Luminescence' package</span>"), icon = icon("terminal"), tabName = "lum",
                          menuSubItem("How it all started", tabName = "lum_1"),
                          menuSubItem("Current content", tabName = "lum_2"),
                          menuSubItem("Reception", tabName = "lum_3")),
                 
-                menuItem(HTML("<span class='highlight-sidebar'>GUI</span> RLumShiny package"), icon = icon("television"), tabName = "shinylum",
+                menuItem(HTML("<span class='highlight-sidebar'>GUI</span> - <span class='sidebar-small'>'RLumShiny' package</span>"), icon = icon("television"), tabName = "shinylum",
                          menuSubItem("Motivation & Content", tabName = "shinylum_1"),
                          menuSubItem("Extending 'shiny'", tabName = "shinylum_2"),
-                         menuSubItem("Examples", tabName = "shinylum_3")),
+                         menuSubItem("Example applications", tabName = "shinylum_3")),
                 
-                menuItem("Get started!", icon = icon("rocket"), tabName = "getstarted")
+                menuItem("Get started!", icon = icon("rocket"), tabName = "getstarted"),
+                
+                menuItem("References", icon = icon("book"), tabName = "references")
     ),#EndOf::SideBarMenu
     
     # QR Code to presentation
@@ -124,11 +126,11 @@ ui <- dashboardPage(
                       box(width = 4, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = TRUE,
                           title = "Affiliations",
                           tabBox(width = 12,
-                                 tabPanel("[1]", HTML(affils[[1]])),
-                                 tabPanel("[2]", HTML(affils[[2]])),
-                                 tabPanel("[3]", HTML(affils[[3]])),
-                                 tabPanel("[4]", HTML(affils[[4]])),
-                                 tabPanel("[5]", HTML(affils[[5]]))
+                                 tabPanel(tags$b("1"), HTML(affils[[1]])),
+                                 tabPanel(tags$b("2"), HTML(affils[[2]])),
+                                 tabPanel(tags$b("3"), HTML(affils[[3]])),
+                                 tabPanel(tags$b("4"), HTML(affils[[4]])),
+                                 tabPanel(tags$b("5"), HTML(affils[[5]]))
                           ))
                     )
                 )
@@ -218,9 +220,9 @@ ui <- dashboardPage(
                                     tags$p(HTML(HTML(
                                       "To be fair, this is of course only a small subset of input widgets required
                                       to control all the options listed in the CLI code. But for a user new to <b>R</b>
-                                      we could safely assume that a GUI is the much more comofortable alternative.</br>
-                                      In the next section <code>\"The 'shiny' framework\"</code> you will learn about the basic
-                                      structure of a 'shiny' application, the different input widgets and how to share
+                                      we could safely assume that a GUI is the much more comfortable alternative.</br>
+                                      In the next section <code>The 'shiny' framework</code> you will learn more about the basic
+                                      structure of a shiny application, the different input widgets and how to share
                                       the applications with others."
                                     )))))
                 )
@@ -460,9 +462,9 @@ ui <- dashboardPage(
                              tabPanel(title = tagList(icon("desktop"), "Run locally"),
                                       tags$p(
                                         HTML(
-                                          "Sharing shiny applications over the internet is not a must, it is always possible
+                                          "Running shiny applications as a service over the internet is not a must, it is always possible
                                           to run any shiny application locally on any computer with a working instance
-                                          of <b>R</b> and RStudio. Shiny applications can also be included in <b>R</b> packages (like <code>RLumShiny</code>), which
+                                          of <b>R</b> and RStudio. Shiny applications can also be included in <b>R</b> packages (like in <code>RLumShiny</code>), which
                                           can be downloaded e.g. from GitHub or, of course, from CRAN. Running a shiny application
                                           on your local computer does require a HTML5 compliant webbrowser, but no internet connection!"
                                         )
@@ -474,13 +476,22 @@ ui <- dashboardPage(
       ),
       ## Luminescence ----
       tabItem("lum_2",
-              box(width = 12, status = "primary", solidHeader = FALSE,
-                  title = HTML("Functions in the <b>R</b> package 'Luminescence' (v0.8.0)"),
+              box(width = 4, status = "warning", solidHeader = TRUE, collapsible = TRUE,
+                  title = HTML("A potpourri of functions"),
+                  tags$p(HTML("Placeholder")),
+                  plotOutput("rlum_fun_history_plot")
+                  ),
+              box(width = 8, status = "primary", solidHeader = FALSE,
+                  title = HTML("Current content of <code>Luminescence</code> (v0.8.0)"),
                   dataTableOutput("lum_functions"))
       ),
       tabItem("lum_3",
               box(width = 4, status = "primary", solidHeader = TRUE, collapsible = TRUE,
                   title = HTML("Statistics"),
+                  tags$p(HTML("It is generally hard to measure and keep track of the distribution and reception of
+                              the <b>R</b> package <code>Luminescence</code>. The official <b>CRAN</b> download statistics,
+                              however, may provide at least some indication on how many and where people are using
+                              our package. The data you see on the right-hand side are generated from the raw <b>CRAN</b> logs.")),
                   radioButtons("cran_package", "R package", 
                                choices = list("Luminescence" = "luminescence",
                                               "RLumShiny" = "rlumshiny")),
@@ -520,7 +531,7 @@ ui <- dashboardPage(
                                   )
                               ),
                        column(width = 8,
-                              tabBox(title = HTML("Current content of <code>RLumShiny</code>"),
+                              tabBox(title = HTML("Current content of <code>RLumShiny</code> (v0.1.1)"),
                                      width = 12,
                                      tabPanel("Applications",
                                               tags$p(HTML("Shiny applications available in the <b>R</b> package <code>RLumShiny</code> (v0.1.1). 
@@ -626,8 +637,7 @@ ui <- dashboardPage(
                               uiOutput("cosmic")))
       ),
       tabItem("getstarted",
-              box(title = NULL, width = 12,
-                  tags$p("Here you can find a small collection of useful resources to get started."),
+              box(title = tags$b("A collection of useful resources"), width = 12,
                   tabBox(title = NULL, width = 8,
                          tabPanel(title = HTML("<code>shiny</code>"),
                                   info_table_shiny()
@@ -643,7 +653,12 @@ ui <- dashboardPage(
                       tags$p("The code of this presentation is freely available on", icon("github"),"GitHub"),
                       tags$img(src = "img/qr_github.png", style = "width:100%;", border = 0),
                       div(align = "center", tags$a(id = "github", href = "#", "https://github.com/tzerk/EGU2017-PICO")))
-              ))
+              )
+              ),
+      tabItem("references",
+              box(title = NULL, width = 12,
+                  tags$p("Placeholder"))
+              )
     )#EndOf::tabItems
   )#EndOf::dashboardBody
 )#EndOf::BODY
@@ -793,6 +808,18 @@ server <- function(input, output, session) {
   })
   
   ## Luminescence functions table
+  output$rlum_fun_history_plot <- renderPlot({
+    gg <- ggplot(rlum_fun_history, aes(dates, funs)) + 
+      geom_step(lwd = 1.5, col = "red") +
+      geom_point() +
+      theme_light() +
+      xlab("Date") +
+      ylab("No. of exported functions") +
+      geom_text(aes(angle = 90), label = version, vjust = "top", hjust = "left", nudge_y = 1)
+    
+    gg
+  })
+  
   output$lum_functions <- renderDataTable({
     rlum_fun_df
   }, options = list(pageLength = 10, pagingType = "full", 
