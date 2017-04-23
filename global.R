@@ -259,6 +259,7 @@ references_df <- data.frame(
     "Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and recent improvements. Ancient TL, 33(1): 35-42. URL http://users.aber.ac.uk/ggd/.",
     "Kreutzer, S., Schmidt, C., Fuchs, M. C., Dietze, M., Fischer, M., and Fuchs, M., 2012. Introducing an R package for luminescence dating analysis. Ancient TL, 30(1): 1-8.",
     "Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., and Friedrich, J., 2017. Luminescence: Comprehensive Luminescence Dating Data Analysis. CRAN, version 0.7.4. URL https://CRAN.R-project.org/package=Luminescence. Developer version on GitHub: https://github.com/R-Lum/Luminescence.",
+    "Olley, J. and Reed, M., 2003. Radial Plot, version v1.3.",
     "Unwin, A. and Hofmann, H., 1999. GUI and Command-line - Conflict or Synergy? In Berk, K. and Pourahmadi, M. (eds.), Computing Science and Statistics, Proceedings of the 31st Symposium on the Interface, pp. 246-253.",
     "Vermeesch, P., 2009. RadialPlotter: A Java application for fission track, luminescence and other radial plots. Radiation Measurements, 44(4): 409-410. URL http://www.ucl.ac.uk/~ucfbpve/radialplotter/."
   )
