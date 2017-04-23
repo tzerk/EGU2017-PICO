@@ -53,7 +53,7 @@ ui <- dashboardPage(
                          menuSubItem("Deploying apps", tabName = "shiny_3")),
                 
                 menuItem(HTML("<span class='highlight-sidebar'>CLI</span> - <span class='sidebar-small'>'Luminescence' package</span>"), icon = icon("terminal"), tabName = "lum",
-                         menuSubItem("How it all started", tabName = "lum_1"),
+                         menuSubItem("Why another R package?", tabName = "lum_1"),
                          menuSubItem("Current content", tabName = "lum_2"),
                          menuSubItem("Reception", tabName = "lum_3")),
                 
@@ -179,7 +179,7 @@ ui <- dashboardPage(
                                         HTML("</blockquote>"))
                              )
                     ),
-                    box(width = 6, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
+                    box(width = 6, status = "warning", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
                         title = tagList(icon("bar-chart"), HTML("&nbsp;&nbsp;Creating a plot: a common task in <b>R</b>")),
                         tags$p(HTML("<b>Consider the following situation:</b></br> You, as a scientist, are facing the task
                                     to visualise your data in a more complex chart using <b>R</b>. Let us further
@@ -252,7 +252,7 @@ ui <- dashboardPage(
                 column(width = 6,
                        
                        ## 
-                       box(width = 12, solidHeader = TRUE, collapsible = TRUE,
+                       box(width = 12, status = "warning", solidHeader = FALSE, collapsible = TRUE,
                            title = tags$b("Input Widgets"),
                            tags$p(HTML("This is a non-exhaustive collection of input widgets available in the
                                        <code>shiny</code> framework. Most of the widgets here are bound to a parameter of the
@@ -428,68 +428,124 @@ ui <- dashboardPage(
                                       HTML("</blockquote>"))
                            )
                   ),
-                  box(title = NULL,  solidHeader = FALSE, status = "success", 
-                      id = "deploy_1",
-                      width = 12,
-                      tabBox(width = 12, title = NULL,
-                             tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
-                                      tags$p(
-                                        HTML(
-                                          "The easist and fastest way to share your self-written shiny applications
+                  tabBox(width = 12, title = NULL,
+                         tabPanel(title = tagList(icon("cloud"), "Shinyapps.io"),
+                                  tags$p(
+                                    HTML(
+                                      "The easist and fastest way to share your self-written shiny applications
                                           is by using the commercial service <a href = '#'>Shinyapps.io</a> by RStudio. 
                                           On this self-service platform users can upload, run and share their shiny
                                           applications. The service offers different subscription plans depending
                                           on the desired number of allowed applications, service availability and
                                           feature content. A free subscription is also available."
-                                        )
-                                      ),
-                                      tags$img(src = "img/deploy_shiny_shinyapps.io.png", style = "width:100%;", border = 0)
-                             ),
-                             tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
-                                      tags$p(
-                                        HTML(
-                                          "If you do not want to rely on a third-party service to host your shiny
+                                    )
+                                  ),
+                                  tags$img(src = "img/deploy_shiny_shinyapps.io.png", style = "width:100%;", border = 0)
+                         ),
+                         tabPanel(title = tagList(icon("cloud"), "Shiny Server"),
+                                  tags$p(
+                                    HTML(
+                                      "If you do not want to rely on a third-party service to host your shiny
                                           applications there is also the option to host your own instance of 
                                           <code>Shiny-Server</code>. Naturally, apart from the software itself, which is
                                           also available in an open-source version, a server or suitable webspace
                                           is required beforehand. While setting up a server yourself requires more
                                           preparation, knowledge and potentially costs, the benefit of having full
                                           control over the service can very well be justified."
-                                        )
-                                      ),
-                                      tags$img(src = "img/deploy_shiny_shiny-server.png", style = "width:100%;", border = 0)
-                             ),
-                             tabPanel(title = tagList(icon("desktop"), "Run locally"),
-                                      tags$p(
-                                        HTML(
-                                          "Running shiny applications as a service over the internet is not a must, it is always possible
+                                    )
+                                  ),
+                                  tags$img(src = "img/deploy_shiny_shiny-server.png", style = "width:100%;", border = 0)
+                         ),
+                         tabPanel(title = tagList(icon("desktop"), "Run locally"),
+                                  tags$p(
+                                    HTML(
+                                      "Running shiny applications as a service over the internet is not a must, it is always possible
                                           to run any shiny application locally on any computer with a working instance
                                           of <b>R</b> and RStudio. Shiny applications can also be included in <b>R</b> packages (like in <code>RLumShiny</code>), which
                                           can be downloaded e.g. from GitHub or, of course, from CRAN. Running a shiny application
                                           on your local computer does require a HTML5 compliant webbrowser, but no internet connection!"
-                                        )
-                                      ),
-                                      tags$img(src = "img/deploy_shiny_local.png", style = "width:100%;", border = 0)
-                             )
-                      ))
+                                    )
+                                  ),
+                                  tags$img(src = "img/deploy_shiny_local.png", style = "width:100%;", border = 0)
+                         )
+                  )
               )
       ),
       ## Luminescence ----
+      tabItem("lum_1",
+              
+              box(width = 12, solidHeader = FALSE,
+                  title = NULL,
+                  fluidRow(width = 12,
+                           column(width = 1,
+                                  actionButton("rlum_history", "", icon = icon("info-circle"), class = "info-btn")
+                                  ),
+                           column(width = 11,
+                                  div(align = "left", 
+                                      HTML("<blockquote class = 'blockquote-reverse'>"), 
+                                      tags$p(id = "reality", 
+                                             HTML("&laquo; <b>R</b> allows the creation of complex and transparent data analysis routines for experimental protocols that are not available in existing software. &raquo;")),
+                                      HTML("<footer>Kreutzer et al. (2012)</footer>"),
+                                      HTML("</blockquote>"))
+                           )
+                  ),
+                box(width = 6, status = "warning", solidHeader = TRUE, collapsible = TRUE,
+                    title = "Why?",
+                    tags$p(HTML(
+                      "<blockquote class = 'blockquote-reverse'>
+                      For routine luminescence dating applications the commonly used [measurement devices] 
+                      are bundled with analysis software, such as Viewer or Analyst. These software 
+                      solutions are appropriate for most of the regular dating and publication jobs, 
+                      and enable assessment of luminescence characteristics and provide basic statistical 
+                      data treatment. However, for further statistical analysis and data treatments, 
+                      this software may reach its limits. In such cases, open programming languages 
+                      are a more appropriate approach.
+                      <footer>modified after Kreutzer et al. (2012)</footer>
+                      </blockquote>"
+                    ))),
+                    tabBox(width = 6, title = "Impressions",
+                        tabPanel("Analyst #1",
+                                 tags$p(HTML("Reference: Duller 2015")),
+                                 tags$img(src = "img/analyst_1.png", style = "width:100%;", border = 0)
+                                 ),
+                        tabPanel("Analyst #2",
+                                 tags$p(HTML("Reference: Duller 2015")),
+                                 tags$img(src = "img/analyst_2.png", style = "width:100%;", border = 0)
+                                 ),
+                        tabPanel("Analyst #3",
+                                 tags$p(HTML("Reference: Duller 2015")),
+                                 tags$img(src = "img/analyst_3.png", style = "width:100%;", border = 0)
+                                 ),
+                        tabPanel("Radial Plot",
+                                 tags$p(HTML("Reference: Olley & Reed 2003")),
+                                 tags$img(src = "img/radial-plot.png", style = "width:100%;", border = 0)
+                                 ),
+                        tabPanel("RadialPlotter",
+                                 tags$p(HTML("Reference: Vermeesch 2009")),
+                                 tags$img(src = "img/radialplotter.png", style = "width:100%;", border = 0)
+                                 )
+                    )
+              )
+              
+              ),
       tabItem("lum_2",
               box(width = 4, status = "warning", solidHeader = TRUE, collapsible = TRUE,
                   title = HTML("A potpourri of functions"),
-                  tags$p(HTML("Placeholder")),
+                  tags$p(HTML("Since its release in 2012 the functionality of the <b>R</b> package <code>Luminescence</code> drastically increased.
+                              What started with a handful of functions to apply a very specific type of signal
+                              analysis and to plot the data is now a collection of >100 functions for all sorts
+                              of (non-)specialised tasks.")),
                   plotOutput("rlum_fun_history_plot")
-                  ),
+              ),
               box(width = 8, status = "primary", solidHeader = FALSE,
                   title = HTML("Current content of <code>Luminescence</code> (v0.8.0)"),
                   dataTableOutput("lum_functions"))
       ),
       tabItem("lum_3",
-              box(width = 4, status = "primary", solidHeader = TRUE, collapsible = TRUE,
+              box(width = 4, status = "warning", solidHeader = TRUE, collapsible = TRUE,
                   title = HTML("Statistics"),
                   tags$p(HTML("It is generally hard to measure and keep track of the distribution and reception of
-                              the <b>R</b> package <code>Luminescence</code>. The official <b>CRAN</b> download statistics,
+                              the <b>R</b> package <code>Luminescence</code> (or <code>RLumShiny</code>). The official <b>CRAN</b> download statistics,
                               however, may provide at least some indication on how many and where people are using
                               our package. The data you see on the right-hand side are generated from the raw <b>CRAN</b> logs.")),
                   radioButtons("cran_package", "R package", 
@@ -501,8 +557,8 @@ ui <- dashboardPage(
                                               "OS" = "os",
                                               "R Version" = "r_version",
                                               "Architecture" = "arch"))),
-              box(width = 8, status = "warning", solidheader = TRUE, collapsible = TRUE,
-                  title = HTML("Plot"),
+              box(width = 8, status = "primary", solidheader = TRUE, collapsible = TRUE,
+                  title = NULL,
                   plotOutput("cran_plot"))
       ),
       
@@ -528,8 +584,8 @@ ui <- dashboardPage(
                                     we can are able to practically remove these restrictions and make both <b>R</b> and
                                     the <code>Luminescence</code> more accessible to our colleagues."
                                   ))
-                                  )
-                              ),
+                              )
+                       ),
                        column(width = 8,
                               tabBox(title = HTML("Current content of <code>RLumShiny</code> (v0.1.1)"),
                                      width = 12,
@@ -548,8 +604,8 @@ ui <- dashboardPage(
                                               )),
                                               dataTableOutput("rlumshiny_fun")
                                      ))
-                              )
                        )
+              )
       ),
       tabItem("shinylum_2",
               
@@ -562,8 +618,11 @@ ui <- dashboardPage(
                                   div(align = "left", 
                                       HTML("<blockquote class = 'blockquote-reverse'>"), 
                                       tags$p(id = "reality", 
-                                             HTML("&laquo; Some important quote &raquo;")),
-                                      HTML("<footer>Someone clever</footer>"),
+                                             HTML("&laquo; [...] 'shiny' is based on 
+                                                  modern programming and markup languages, which allows
+                                                  easy integration of existing JavaScript libraries, thus greatly
+                                                  increasing the capabilities of 'shiny' and <b>R</b> itself. &raquo;")),
+                                      HTML("<footer>Burow et al. (2016)</footer>"),
                                       HTML("</blockquote>"))
                            )
                   ),
@@ -654,11 +713,11 @@ ui <- dashboardPage(
                       tags$img(src = "img/qr_github.png", style = "width:100%;", border = 0),
                       div(align = "center", tags$a(id = "github", href = "#", "https://github.com/tzerk/EGU2017-PICO")))
               )
-              ),
+      ),
       tabItem("references",
               box(title = NULL, width = 12,
                   tags$p("Placeholder"))
-              )
+      )
     )#EndOf::tabItems
   )#EndOf::dashboardBody
 )#EndOf::BODY
@@ -820,6 +879,20 @@ server <- function(input, output, session) {
     gg
   })
   
+  observeEvent(input$rlum_history, {
+    showModal(modalDialog(title = "What the heck is 'Luminescence' anyway?",
+                          tags$p(HTML(
+                            "See Professor Ed Rhodes explain about the basic principle of luminescence dating and the use of the TL/OSL reader.
+                            Note: you can activate the subtitles if there is no sound."
+                          )),
+                          tags$p(HTML(
+                            "<div class='embed-responsive embed-responsive-16by9'>
+                            <iframe class='embed-responsive-item' src='https://www.youtube.com/embed/4g-t8jv_-Ow'></iframe>
+                            </div>"
+                          ))
+                          ))
+  })
+
   output$lum_functions <- renderDataTable({
     rlum_fun_df
   }, options = list(pageLength = 10, pagingType = "full", 
@@ -861,7 +934,7 @@ server <- function(input, output, session) {
                           )),
                           verbatimTextOutput("leaflet_event"),
                           leafletOutput("leaflet")
-                          ))
+    ))
   })
   output$leaflet <- renderLeaflet({
     leaflet() %>% 
