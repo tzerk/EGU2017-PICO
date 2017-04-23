@@ -70,7 +70,7 @@ ui <- dashboardPage(
     # QR Code to presentation
     tags$hr(id = "qr_hr"),
     tags$p(id = "qr_presentation_text", align = "center",
-           "Watch this PICO presentation on you smartphone or tablet!"),
+           "Watch this PICO presentation on your smartphone or tablet!"),
     tags$p(id = "qr_presentation", align = "center",
            tags$img(src = "img/qr_presentation_tablet.png", style = "width:100%;", border = 0)
     )
@@ -238,7 +238,7 @@ ui <- dashboardPage(
                        tabPanel("Ui.R", htmlOutput("helloshiny_code_ui")),
                        tabPanel("Server.R", htmlOutput("helloshiny_code_server"))
                 ),
-                box(width = 6, status = "primary", solidHeader = TRUE,
+                box(width = 6, status = "warning", solidHeader = TRUE,
                     title = "Hello Shiny!",
                     plotOutput("helloshiny"),
                     sliderInput("bins", "Number of bins:", min = 1, max = 50, value = 30, animate = TRUE)
@@ -627,7 +627,7 @@ ui <- dashboardPage(
                            )
                   ),
                   box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
-                      title = "jscolorInput()",
+                      title = "RLumShiny::jscolorInput()",
                       tags$p(HTML(paste(
                         "<code>jscolorInput(inputId, label, value, position = 'bottom',
                         color = 'transparent', mode = 'HSV', slider = TRUE, close = FALSE)</code>",
@@ -641,7 +641,7 @@ ui <- dashboardPage(
                       plotOutput("jscolor_plot")
                   ),
                   box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
-                      title = "popover()",
+                      title = "RLumShiny::popover()",
                       tags$p(HTML(paste(
                         "<code>popover(title, content, header = NULL, html = TRUE,
                           class = 'btn btn-default', placement = c('right', 'top', 'left',
@@ -652,7 +652,7 @@ ui <- dashboardPage(
                       popover("Click me!", content = HTML("Some amazing content."), html = TRUE, header = "Great success!")
                   ),
                   box(width = 4, status = "primary", solidHeader = FALSE, collapsible = TRUE, collapsed = FALSE,
-                      title = "tooltip()",
+                      title = "RLumShiny::tooltip()",
                       tags$p(HTML(paste(
                         "<code>tooltip(refId, text, attr = NULL, animation = TRUE, delay = 100, html = TRUE, placement = 'auto', trigger = 'hover')</code>",
                         "</br></br>Create bootstrap tooltips for any HTML element to be used in shiny applications."
@@ -664,7 +664,7 @@ ui <- dashboardPage(
               )
       ),
       tabItem("shinylum_3",
-              tabBox(title = "RLumShiny applications",
+              tabBox(title = HTML("<code>RLumShiny</code> applications"),
                      id = "examples_1",
                      width = 12,
                      tabPanel("Abanico Plot",
@@ -716,7 +716,7 @@ ui <- dashboardPage(
       ),
       tabItem("references",
               box(title = NULL, width = 12,
-                  tags$p("Placeholder"))
+                 dataTableOutput("references"))
       )
     )#EndOf::tabItems
   )#EndOf::dashboardBody
@@ -957,6 +957,11 @@ server <- function(input, output, session) {
     iframe$cosmic
   })
   
+  ## References
+  output$references <- renderDataTable({
+    references_df
+  }, options = list(pageLength = 10, pagingType = "full", 
+                    searching = FALSE, lengthChange = FALSE))
 }
 
 

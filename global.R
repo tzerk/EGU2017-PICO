@@ -52,7 +52,7 @@ familiar with the most important data structures in R is
 a must.", tags$br(), tags$br(),
   "In the simplest case, for a specific task, using
 the package only involves a single short function call,
-e.g., ", tags$code("Luminescence::plot AbanicoPlot(data = de.data)"), " to produce
+e.g., ", tags$code("Luminescence::plot_AbanicoPlot(data = de.data)"), " to produce
 an abanico plot (Dietze et al., 2016)
 of equivalent dose estimates. However, users may want to
 adjust the plot according to their requirements. While other
@@ -62,7 +62,7 @@ its appearance, this is not possible in <b>R</b>. In <b>R</b> a plot cannot
 be changed after it has been drawn, and the user is required
 to re-run the function call with additional arguments that
 control the appearance of specific plot elements. For the",
-  tags$code("Luminescence::plot AbanicoPlot()"), "function
+  tags$code("Luminescence::plot_AbanicoPlot()"), "function
 there are currently 33 such arguments, plus additional base
 <b>R</b> arguments that can be used to design the plot to ones
 desire. For more elaborate plots the function call in the <b>R</b>
@@ -249,4 +249,17 @@ rlumshiny_fun_df <- data.frame(
                   "Creates a JSColor widget to be used in shiny applications.",
                   "Create a bootstrap button with popover.",
                   "Create bootstrap tooltips for any HTML element to be used in shiny applications.")
+)
+
+references_df <- data.frame(
+  Reference = c(
+    "Burow, C., 2017. RLumShiny: 'Shiny' Applications for the R Package 'Luminescence'. CRAN, version 0.1.1. URL https://CRAN. R-project.org/package=RLumShiny. Developer version on GitHub: https://github.com/tzerk/RLumShiny.",
+    "Burow, C., Kreutzer, S., Dietze, M., Fuchs, M. C., Fischer, M., Schmidt, C., and Brueckner, H., 2016. RLumShiny - A graphical user interface for the R Package 'Luminescence'. Ancient TL, 34: 22-32.",
+    "Chang, W., Cheng, J., Allaire, JJ., Xie, Y., and McPherson, J., 2016. shiny: Web Application Framework for R. URL https://CRAN.R-project.org/package=shiny. R package version 0.13.2.",
+    "Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and recent improvements. Ancient TL, 33(1): 35-42. URL http://users.aber.ac.uk/ggd/.",
+    "Kreutzer, S., Schmidt, C., Fuchs, M. C., Dietze, M., Fischer, M., and Fuchs, M., 2012. Introducing an R package for luminescence dating analysis. Ancient TL, 30(1): 1-8.",
+    "Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., and Friedrich, J., 2017. Luminescence: Comprehensive Luminescence Dating Data Analysis. CRAN, version 0.7.4. URL https://CRAN.R-project.org/package=Luminescence. Developer version on GitHub: https://github.com/R-Lum/Luminescence.",
+    "Unwin, A. and Hofmann, H., 1999. GUI and Command-line - Conflict or Synergy? In Berk, K. and Pourahmadi, M. (eds.), Computing Science and Statistics, Proceedings of the 31st Symposium on the Interface, pp. 246-253.",
+    "Vermeesch, P., 2009. RadialPlotter: A Java application for fission track, luminescence and other radial plots. Radiation Measurements, 44(4): 409-410. URL http://www.ucl.ac.uk/~ucfbpve/radialplotter/."
+  )
 )
