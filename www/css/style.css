@@ -10,6 +10,17 @@
   font-weight: bold;
 }
 
+.sticky-footer {
+  position:fixed;
+  bottom:0;
+  right:0;
+  left:0;
+  background:#ecf0f5;
+  padding:0px;
+  font-size: 10px;
+  box-sizing:border-box;
+}
+
 .sidebar-small {
   font-size: 12px;
 }

@@ -718,7 +718,12 @@ ui <- dashboardPage(
               box(title = NULL, width = 12,
                  dataTableOutput("references"))
       )
-    )#EndOf::tabItems
+    ),#EndOf::tabItems
+    tags$div(class = "sticky-footer",
+             tags$p(align = "right",
+                    HTML("Copyright &copy; Christoph Burow |  This presentation is provided 'as is' without express or implied warranty.")
+                    )
+             )
   )#EndOf::dashboardBody
 )#EndOf::BODY
 
