@@ -721,7 +721,7 @@ ui <- dashboardPage(
     ),#EndOf::tabItems
     tags$div(class = "sticky-footer",
              tags$p(align = "right",
-                    HTML("Copyright &copy; Christoph Burow |  This presentation is provided 'as is' without express or implied warranty.")
+                    HTML("Copyright &copy; 2017 Christoph Burow |  This presentation is provided 'as is' without express or implied warranty.")
                     )
              )
   )#EndOf::dashboardBody
